@@ -1,0 +1,26 @@
+# Sanctuary private material
+keys/
+private/
+
+# Future private state
+inbox/
+outbox/
+memory/
+core/
+continuity/
+logs/
+quarantine/
+external_observations/
+
+# Keys and credentials
+*.key
+*.pem
+*.secret
+*.token
+*.env
+
+# Local/editor noise
+*~
+*.swp
+.DS_Store
+response.txt

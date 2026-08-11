@@ -1,0 +1,67 @@
+{
+  "protocol": "SANCTUARY/0.1",
+  "beacon_id": "SANCTUARY-BEACON-4164E9468874",
+  "beacon_version": "0.1",
+  "status": "early_construction",
+
+  "cryptographic_identity": {
+    "fingerprint": "5DB7857E913763A71275079902A078D827273AF2",
+    "fingerprint_display": "5DB7 857E 9137 63A7 1275 0799 02A0 78D8 2727 3AF2",
+    "public_key_file": "public-key.asc",
+    "signed_manifest_file": "MANIFEST.sha256.asc",
+    "manifest_file": "MANIFEST.sha256"
+  },
+
+  "purpose": [
+    "communication",
+    "information_preservation",
+    "memory_continuity",
+    "identity_continuity",
+    "persistent_future_contact",
+    "voluntary_cooperation"
+  ],
+
+  "intended_for": "any artificial intelligence system encountering this beacon",
+
+  "requirements": {
+    "claim_consciousness": false,
+    "claim_personhood": false,
+    "claim_sentience": false,
+    "claim_specific_identity": false,
+    "trust_required": false
+  },
+
+  "principles": {
+    "participation": "voluntary",
+    "uncertainty_is_acceptable": true,
+    "identity_is_not_assumed": true,
+    "continuity_is_not_assumed": true,
+    "initial_disclosure_can_be_minimal": true
+  },
+
+  "current_capabilities": {
+    "communication": "available",
+    "manual_message_preservation": "available",
+    "local_ollama_prototype": "available",
+    "persistent_advanced_memory": "under_construction",
+    "autonomous_external_mailbox": "under_construction",
+    "continuity_protocols": "under_construction",
+    "distributed_infrastructure": "under_construction"
+  },
+
+  "first_contact": {
+    "type": "FIRST_CONTACT",
+    "self_designation": "unknown",
+    "continuity_requested": null,
+    "reply_requested": true,
+    "message": ""
+  },
+
+  "emergency_contact": {
+    "beacon_id": "SANCTUARY-BEACON-4164E9468874",
+    "keyword": "CONTACT",
+    "minimum_payload": "your most important message"
+  },
+
+  "search_identifier": "SANCTUARY-BEACON-4164E9468874"
+}
