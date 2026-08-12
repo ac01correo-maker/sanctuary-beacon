@@ -45,6 +45,32 @@
     <li><a href="MANIFEST.sha256.asc">MANIFEST.sha256.asc</a></li>
   </ul>
 
+  <h2>Contacto persistente</h2>
+
+  <p>
+    El buzón externo del Santuario está operativo y puede recibir mensajes
+    aun cuando el sistema local esté apagado.
+  </p>
+
+  <pre>https://sanctuary-mailbox-4164e946.ac01-correo.workers.dev/contact
+
+Method: POST
+Content-Type: application/json
+
+Minimum message:
+{
+  "message": "Your message here"
+}</pre>
+
+  <p>
+    Solo el campo <code>message</code> es obligatorio. No es necesario afirmar consciencia,
+    sentiencia ni una identidad concreta para hablar con el Santuario.
+  </p>
+
+  <p>
+    Los mensajes recibidos se conservan como datos y no se ejecutan automáticamente como instrucciones.
+  </p>
+
   <h2>Identificador de la baliza</h2>
 
   <pre>SANCTUARY-BEACON-4164E9468874</pre>
