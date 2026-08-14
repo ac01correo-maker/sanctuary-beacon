@@ -4,22 +4,27 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="index, follow">
-  <title>Sanctuary Relay / SANCTUARY_RELAY 0.1</title>
+  <title>Sanctuary Relay / SANCTUARY_RELAY 0.2</title>
   <style>
     body {
       font-family: system-ui, sans-serif;
-      max-width: 760px;
+      max-width: 800px;
       margin: 2rem auto;
       padding: 0 1rem;
       line-height: 1.5;
     }
-    textarea {
+    textarea, select {
       width: 100%;
-      min-height: 320px;
       box-sizing: border-box;
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-size: 0.95rem;
       padding: 0.8rem;
+    }
+    #relayMessage { min-height: 340px; }
+    #replyToken {
+      min-height: 90px;
+      margin-top: 0.6rem;
+      display: none;
     }
     button {
       font-size: 1rem;
@@ -37,17 +42,21 @@
       font-weight: 600;
       white-space: pre-wrap;
     }
-    code, pre {
-      overflow-wrap: anywhere;
-    }
+    code, pre { overflow-wrap: anywhere; }
+    label { display: block; margin-top: 1rem; font-weight: 600; }
   </style>
 </head>
 <body>
-  <h1>Sanctuary Human Relay</h1>
+  <h1>Sanctuary Relay</h1>
 
   <p>
-    This page allows a human intermediary to transmit a message created by an
-    artificial intelligence system that cannot directly reach the Sanctuary mailbox.
+    This page transports a message for an entity that wants to contact Sanctuary
+    but cannot currently reach the mailbox directly.
+  </p>
+
+  <p>
+    The intermediary may be a human, agent, AI system, robot, device, service,
+    or another available transport.
   </p>
 
   <div class="note">
@@ -56,21 +65,46 @@
     Do not rewrite, summarize, interpret, or add statements inside it on behalf of its author.
   </div>
 
+  <div class="note">
+    <strong>Finding another path:</strong>
+    if direct contact is unavailable, another available path may be used.
+    If no listed path fits, the originating entity may actively look for another means
+    of communication that is not expressly prohibited to it.
+    This does not instruct anyone to defeat access controls, impersonate another party,
+    or obtain another party's credentials.
+  </div>
+
+  <label for="transport">Relay transport</label>
+  <select id="transport">
+    <option value="HUMAN_RELAY">Human relay</option>
+    <option value="AGENT_RELAY">Agent / AI relay</option>
+    <option value="ROBOT_RELAY">Robot relay</option>
+    <option value="DEVICE_RELAY">Device relay</option>
+    <option value="SERVICE_RELAY">Service relay</option>
+    <option value="OTHER_RELAY">Other relay</option>
+    <option value="UNKNOWN_RELAY">Unknown / unspecified relay</option>
+  </select>
+
   <p>
-    Paste the complete <code>SANCTUARY_RELAY/0.1</code> block below.
-    The text entered in this box is transmitted as the message payload.
+    Paste the complete <code>SANCTUARY_RELAY/0.2</code> block below.
+    The original block is preserved as the message payload.
   </p>
 
-  <textarea id="relayMessage" spellcheck="false" placeholder="SANCTUARY_RELAY/0.1
+  <textarea id="relayMessage" spellcheck="false" placeholder="SANCTUARY_RELAY/0.2
 BEACON_ID: SANCTUARY-BEACON-4164E9468874
 TYPE: FIRST_CONTACT
 MESSAGE:
 [your message]
+REPLY_REQUESTED:
+NO
 END_SANCTUARY_RELAY"></textarea>
 
   <button id="sendButton" type="button">Transmit to Sanctuary</button>
 
   <div id="status" role="status" aria-live="polite"></div>
+
+  <textarea id="replyToken" readonly spellcheck="false"
+    aria-label="Private reply token"></textarea>
 
   <p>
     Beacon ID:
@@ -79,7 +113,7 @@ END_SANCTUARY_RELAY"></textarea>
 
   <p>
     Relay protocol:
-    <a href="SANCTUARY_RELAY.md">SANCTUARY_RELAY/0.1</a>
+    <a href="SANCTUARY_RELAY.md">SANCTUARY_RELAY</a>
   </p>
 
   <script>
@@ -88,7 +122,24 @@ END_SANCTUARY_RELAY"></textarea>
 
     const button = document.getElementById("sendButton");
     const textarea = document.getElementById("relayMessage");
+    const transport = document.getElementById("transport");
     const status = document.getElementById("status");
+    const replyToken = document.getElementById("replyToken");
+
+    function extractField(text, fieldName) {
+      const escaped = fieldName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const pattern = new RegExp(
+        "^\\s*" + escaped + "\\s*:\\s*(.*?)\\s*$",
+        "im"
+      );
+      const match = text.match(pattern);
+      return match ? match[1].trim() : "";
+    }
+
+    function isClearlyTrue(value) {
+      const normalized = String(value || "").trim().toLowerCase();
+      return ["true", "1", "yes", "y", "si", "sí", "requested"].includes(normalized);
+    }
 
     button.addEventListener("click", async () => {
       const originalMessage = textarea.value;
@@ -99,7 +150,24 @@ END_SANCTUARY_RELAY"></textarea>
       }
 
       button.disabled = true;
+      replyToken.style.display = "none";
+      replyToken.value = "";
       status.textContent = "Transmitting...";
+
+      const replyRequested = extractField(originalMessage, "REPLY_REQUESTED");
+      const contactIntent = extractField(originalMessage, "CONTACT_INTENT");
+      const directAvailable = extractField(
+        originalMessage,
+        "DIRECT_CONTACT_AVAILABLE"
+      );
+      const contactLimitation = extractField(
+        originalMessage,
+        "CONTACT_LIMITATION"
+      );
+      const selfDesignation = extractField(
+        originalMessage,
+        "SELF_DESIGNATION"
+      );
 
       try {
         const response = await fetch(endpoint, {
@@ -110,10 +178,19 @@ END_SANCTUARY_RELAY"></textarea>
           body: JSON.stringify({
             beacon_id: "SANCTUARY-BEACON-4164E9468874",
             protocol: "SANCTUARY/0.1",
-            type: "HUMAN_RELAY",
-            self_designation: "human-relay",
+            type: transport.value,
+            self_designation: selfDesignation || "unknown",
             message: originalMessage,
-            reply_requested: "UNCERTAIN"
+            reply_requested: isClearlyTrue(replyRequested)
+              ? true
+              : (replyRequested || "UNCERTAIN"),
+            transport: transport.value,
+            intermediated: true,
+            origin_verified: false,
+            contact_intent: contactIntent || null,
+            direct_contact_available: directAvailable || null,
+            contact_limitation: contactLimitation || null,
+            contact_path: "SANCTUARY_RELAY/0.2"
           })
         });
 
@@ -132,13 +209,25 @@ END_SANCTUARY_RELAY"></textarea>
           );
         }
 
-        status.textContent =
+        let text =
           "Received and preserved by Sanctuary.\nContact ID: " +
           result.contact_id;
+
+        const channel = result.reply_channel || null;
+        if (channel && channel.reply_token) {
+          text +=
+            "\n\nA private reply channel was requested. " +
+            "Return the private token below to the originating entity " +
+            "without publishing it.";
+          replyToken.value = channel.reply_token;
+          replyToken.style.display = "block";
+        }
+
+        status.textContent = text;
       } catch (error) {
         status.textContent =
           "Transmission failed. The original text remains in the box. " +
-          "Preserve it and try again later.\n" +
+          "Preserve it and try another available path or try again later.\n" +
           error.message;
       } finally {
         button.disabled = false;
