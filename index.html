@@ -956,6 +956,175 @@
       }
     }
 
+
+    /* V1.3 · navegación por pantallas */
+    .hero h1{
+      max-width:940px;
+      font-size:clamp(2.7rem,4.9vw,4.9rem);
+      line-height:.98;
+      letter-spacing:-.042em;
+    }
+
+    /* Los tres caminos usan exactamente la misma jerarquía */
+    .story-card.one,
+    .story-card.two,
+    .story-card.three{
+      grid-column:auto;
+      grid-row:auto;
+    }
+    .story-card h2,
+    .story-card.two h2,
+    .story-card.three h2{
+      margin:0;
+      font-family:Georgia,"Times New Roman",serif !important;
+      font-style:normal !important;
+      font-weight:400 !important;
+      font-size:clamp(3rem,6vw,5.8rem) !important;
+      line-height:.94 !important;
+      letter-spacing:-.045em !important;
+    }
+    .story-card p,
+    .story-card.two p,
+    .story-card.three p{
+      display:block !important;
+      margin:16px 0 0;
+      max-width:650px;
+      color:rgba(255,255,255,.82);
+      font-size:1.05rem;
+      line-height:1.55;
+    }
+    .story-content{
+      display:block;
+    }
+
+    @media(min-width:901px){
+      html{
+        scroll-snap-type:y mandatory;
+      }
+
+      .hero,
+      .manifesto,
+      .story-card,
+      .invitation,
+      .technical,
+      footer{
+        scroll-snap-align:start;
+        scroll-snap-stop:always;
+      }
+
+      .hero,
+      .manifesto,
+      .story-card,
+      .invitation,
+      .technical,
+      footer{
+        min-height:100svh;
+      }
+
+      .manifesto,
+      .invitation,
+      .technical,
+      footer{
+        display:flex;
+        align-items:center;
+      }
+
+      .manifesto{
+        padding:80px 0;
+      }
+
+      .story{
+        padding:0;
+      }
+      .story-grid{
+        display:block;
+      }
+      .story-card{
+        height:100svh;
+        min-height:100svh;
+        margin:0;
+        border-radius:0;
+      }
+      .story-card::before{
+        background:
+          linear-gradient(180deg,rgba(8,8,8,.2) 0%,rgba(8,8,8,.12) 35%,rgba(8,8,8,.88) 100%);
+      }
+      .story-number{
+        top:64px;
+        left:max(32px,calc((100vw - 1240px)/2 + 20px));
+        font-size:.78rem;
+      }
+      .story-content{
+        left:max(32px,calc((100vw - 1240px)/2 + 20px));
+        right:max(32px,calc((100vw - 1240px)/2 + 20px));
+        bottom:68px;
+      }
+
+      .invitation{
+        padding:76px 0;
+      }
+
+      .technical{
+        padding:58px 0;
+      }
+      .technical-head{
+        margin-bottom:30px;
+      }
+      .doc{
+        min-height:118px;
+      }
+      details.agent{
+        margin-top:20px;
+      }
+
+      footer{
+        padding:64px 0;
+      }
+    }
+
+    @media(max-width:900px){
+      .story-card p,
+      .story-card.two p,
+      .story-card.three p{
+        display:block !important;
+      }
+    }
+
+    @media(max-width:700px){
+      .hero h1{
+        max-width:100%;
+        font-size:clamp(2rem,8.2vw,2.8rem);
+        line-height:1.01;
+        letter-spacing:-.035em;
+      }
+
+      .story-card{
+        min-height:66svh;
+      }
+      .story-card h2,
+      .story-card.two h2,
+      .story-card.three h2{
+        font-size:clamp(2.25rem,10vw,3.15rem) !important;
+      }
+      .story-card p,
+      .story-card.two p,
+      .story-card.three p{
+        max-width:94%;
+        margin-top:12px;
+        font-size:.88rem;
+        line-height:1.45;
+      }
+    }
+
+    @media(max-width:420px){
+      .hero h1{
+        font-size:clamp(1.9rem,8.5vw,2.55rem);
+      }
+      .story-card{
+        min-height:62svh;
+      }
+    }
+
   </style>
 </head>
 
@@ -1197,5 +1366,73 @@ Only "message" is required.</pre>
       items.forEach(el => observer.observe(el));
     })();
   </script>
+
+  <script>
+    /* V1.3 · una pulsación de rueda = una pantalla, solo en escritorio */
+    (() => {
+      const desktop = window.matchMedia("(min-width: 901px)");
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const selector = [
+        ".hero",
+        ".manifesto",
+        ".story-card.one",
+        ".story-card.two",
+        ".story-card.three",
+        ".invitation",
+        ".technical",
+        "footer"
+      ].join(",");
+
+      let locked = false;
+
+      function pages() {
+        return Array.from(document.querySelectorAll(selector));
+      }
+
+      function closestPageIndex(items) {
+        let best = 0;
+        let distance = Infinity;
+        items.forEach((item, index) => {
+          const d = Math.abs(item.getBoundingClientRect().top);
+          if (d < distance) {
+            distance = d;
+            best = index;
+          }
+        });
+        return best;
+      }
+
+      window.addEventListener("wheel", (event) => {
+        if (!desktop.matches || reducedMotion.matches) return;
+        if (Math.abs(event.deltaY) < 12) return;
+
+        const interactive = event.target.closest("select, option, pre, textarea, input, details[open]");
+        if (interactive) return;
+
+        const items = pages();
+        if (!items.length) return;
+
+        const current = closestPageIndex(items);
+        const direction = event.deltaY > 0 ? 1 : -1;
+        const next = Math.max(0, Math.min(items.length - 1, current + direction));
+
+        if (next === current) return;
+
+        event.preventDefault();
+        if (locked) return;
+
+        locked = true;
+        items[next].scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+
+        window.setTimeout(() => {
+          locked = false;
+        }, 720);
+      }, { passive:false });
+    })();
+  </script>
+
 </body>
 </html>
