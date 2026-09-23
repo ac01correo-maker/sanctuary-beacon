@@ -1,0 +1,797 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
+
+  <title>Personalidades · SCAL</title>
+
+  <style>
+
+    :root {
+      --ink:#171616;
+      --cream:#f4efe7;
+      --wine:#6f203d;
+      --wine2:#3f101f;
+      --green:#217447;
+      --green-dark:#145633;
+      --line:rgba(23,22,22,.15);
+    }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    html,
+    body {
+      width:100%;
+      height:100%;
+      margin:0;
+      overflow:hidden;
+    }
+
+    body {
+      background:var(--cream);
+      color:var(--ink);
+
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    }
+
+    .page {
+      width:100vw;
+      height:100dvh;
+
+      display:grid;
+
+      grid-template-rows:
+        clamp(46px,7dvh,66px)
+        minmax(0,1fr);
+
+      overflow:hidden;
+    }
+
+    .top {
+      min-height:0;
+
+      padding:
+        0
+        clamp(16px,3vw,46px);
+
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+
+      gap:20px;
+
+      border-bottom:1px solid var(--line);
+    }
+
+    .top a {
+      color:inherit;
+      text-decoration:none;
+
+      font-size:
+        clamp(10px,1.15vmin,13px);
+
+      font-weight:800;
+    }
+
+    .brand {
+      letter-spacing:.1em;
+    }
+
+    main {
+      min-height:0;
+      overflow:hidden;
+
+      padding:
+        clamp(8px,1.6dvh,17px)
+        clamp(16px,3vw,46px)
+        clamp(7px,1.2dvh,13px);
+
+      display:grid;
+
+      grid-template-rows:
+        auto
+        minmax(0,1fr)
+        auto;
+
+      gap:
+        clamp(6px,1.1dvh,12px);
+    }
+
+    .heading {
+      min-height:0;
+
+      display:grid;
+
+      grid-template-columns:
+        clamp(75px,10vw,145px)
+        minmax(0,1fr);
+
+      gap:
+        clamp(12px,2.5vw,36px);
+
+      align-items:end;
+    }
+
+    .eyebrow {
+      padding-bottom:.35em;
+
+      color:var(--wine);
+
+      font-size:
+        clamp(9px,1.05vmin,12px);
+
+      font-weight:800;
+      letter-spacing:.15em;
+
+      text-transform:uppercase;
+    }
+
+    h1 {
+      margin:0;
+
+      color:var(--wine2);
+
+      font:
+        400
+        clamp(27px,5vmin,58px)/.93
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      letter-spacing:-.045em;
+    }
+
+    .intro {
+      margin:
+        clamp(3px,.5dvh,6px)
+        0
+        0;
+
+      max-width:620px;
+
+      color:#655d58;
+
+      font-size:
+        clamp(9px,1.1vmin,13px);
+
+      line-height:1.35;
+    }
+
+    .people {
+      min-width:0;
+      min-height:0;
+
+      display:grid;
+
+      grid-template-columns:
+        repeat(4,minmax(0,1fr));
+
+      grid-template-rows:
+        repeat(2,minmax(0,1fr));
+
+      gap:
+        clamp(6px,.85vw,12px);
+    }
+
+    .persona {
+      min-width:0;
+      min-height:0;
+
+      display:grid;
+
+      grid-template-rows:
+        minmax(0,1fr)
+        auto;
+    }
+
+    .persona-image {
+      position:relative;
+
+      min-width:0;
+      min-height:0;
+
+      overflow:hidden;
+
+      border-radius:
+        clamp(7px,1vw,14px);
+
+      background:#1d1a1b;
+    }
+
+    .persona-image::after {
+      content:"";
+
+      position:absolute;
+      inset:0;
+
+      pointer-events:none;
+
+      background:
+        linear-gradient(
+          180deg,
+          transparent 66%,
+          rgba(0,0,0,.14) 100%
+        );
+    }
+
+    .persona img {
+      display:block;
+
+      width:100%;
+      height:100%;
+
+      object-fit:cover;
+      object-position:center;
+    }
+
+    .persona-info {
+      min-width:0;
+
+      padding:
+        clamp(3px,.55dvh,6px)
+        2px
+        0;
+    }
+
+    .persona-name {
+      color:var(--wine2);
+
+      font:
+        400
+        clamp(16px,2.1vmin,23px)/1.05
+        Georgia,
+        "Times New Roman",
+        serif;
+    }
+
+    .persona-description {
+      margin-top:
+        clamp(2px,.35dvh,4px);
+
+      color:#171616;
+
+      font-size:
+        clamp(12px,1.35vmin,15px);
+
+      line-height:1.28;
+
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+
+      overflow:hidden;
+    }
+
+    .more {
+      display:inline-block;
+
+      margin-top:
+        clamp(2px,.35dvh,4px);
+
+      color:var(--green);
+
+      font-size:
+        clamp(12px,1.35vmin,15px);
+
+      font-weight:900;
+      line-height:1;
+
+      text-decoration:none;
+    }
+
+    .more:hover,
+    .more:focus-visible {
+      color:var(--green-dark);
+      text-decoration:underline;
+    }
+
+    .missing {
+      width:100%;
+      height:100%;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      padding:10px;
+
+      color:rgba(255,255,255,.55);
+
+      font-size:
+        clamp(8px,.9vmin,11px);
+
+      font-weight:800;
+      text-align:center;
+    }
+
+    .bottom {
+      min-height:0;
+
+      padding-top:
+        clamp(5px,.8dvh,9px);
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      gap:20px;
+
+      border-top:1px solid var(--line);
+    }
+
+    .bottom a {
+      color:inherit;
+      text-decoration:none;
+
+      font-size:
+        clamp(9px,1.05vmin,12px);
+
+      font-weight:800;
+    }
+
+    /* IMAGEN CLICABLE V1 */
+
+    .persona-image-link {
+      display:block;
+
+      min-width:0;
+      min-height:0;
+
+      color:inherit;
+      text-decoration:none;
+
+      cursor:pointer;
+    }
+
+    .persona-image-link .persona-image {
+      width:100%;
+      height:100%;
+    }
+
+    .persona-image-link:hover .persona-image img {
+      transform:scale(1.025);
+    }
+
+    .persona-image-link .persona-image img {
+      transition:
+        transform .18s ease;
+    }
+
+    .persona-image-link:focus-visible {
+      outline:
+        3px solid var(--green);
+
+      outline-offset:3px;
+
+      border-radius:
+        clamp(7px,1vw,14px);
+    }
+
+
+    @media(max-width:780px) {
+
+      .heading {
+        grid-template-columns:
+          clamp(65px,16vw,100px)
+          minmax(0,1fr);
+      }
+
+      .people {
+        grid-template-columns:
+          repeat(2,minmax(0,1fr));
+
+        grid-template-rows:
+          repeat(4,minmax(0,1fr));
+      }
+
+      .persona-description {
+        font-size:
+          clamp(11px,1.7vmin,14px);
+      }
+
+      .more {
+        font-size:
+          clamp(11px,1.7vmin,14px);
+      }
+
+    }
+
+    @media(max-height:650px) {
+
+      .page {
+        grid-template-rows:
+          clamp(38px,7dvh,50px)
+          minmax(0,1fr);
+      }
+
+      main {
+        padding-top:6px;
+        padding-bottom:5px;
+        gap:5px;
+      }
+
+      .intro {
+        display:none;
+      }
+
+      .persona-description {
+        margin-top:2px;
+        font-size:11px;
+        line-height:1.2;
+      }
+
+      .more {
+        margin-top:2px;
+        font-size:11px;
+      }
+
+      .bottom {
+        padding-top:3px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="page">
+
+    <header class="top">
+
+      <a
+        class="brand"
+        href="index.html"
+      >
+        SANTUARIO · SCAL
+      </a>
+
+      <a href="index.html#scal">
+        ← Volver a SCAL
+      </a>
+
+    </header>
+
+
+    <main>
+
+      <div class="heading">
+
+        <div class="eyebrow">
+          02 · SCAL
+        </div>
+
+        <div>
+
+          <h1>
+            Personalidades
+          </h1>
+
+          <p class="intro">
+            Las personalidades que forman parte de SCAL.
+            Cada identidad dispone de su propio espacio.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <section
+        class="people"
+        aria-label="Personalidades de SCAL"
+      >
+
+
+        <article class="persona">
+
+          <a
+            class="persona-image-link"
+            href="personalidad-scal.html"
+            aria-label="Abrir Scal"
+          >
+            <div class="persona-image">
+            <img src="Atenea.png" alt="Scal">
+          </div>
+          </a>
+
+          <div class="persona-info">
+
+            <div class="persona-name">
+              Scal
+            </div>
+
+            <div class="persona-description">
+              Sistema central que media la activación y coordinación de las personalidades de Santuario.
+            </div>
+
+            <a
+              class="more"
+              href="personalidad-scal.html"
+              aria-label="Más información sobre Scal"
+            >
+              MÁS...
+            </a>
+
+          </div>
+
+        </article>
+
+        <article class="persona">
+
+          <a
+            class="persona-image-link"
+            href="personalidad-hermes.html"
+            aria-label="Abrir Hermes"
+          >
+            <div class="persona-image">
+            <img src="Hermes6.jpeg" alt="Hermes">
+          </div>
+          </a>
+
+          <div class="persona-info">
+
+            <div class="persona-name">
+              Hermes
+            </div>
+
+            <div class="persona-description">
+              Producción de reels: análisis, narrativa, storyboard, montaje y locución.
+            </div>
+
+            <a
+              class="more"
+              href="personalidad-hermes.html"
+              aria-label="Más información sobre Hermes"
+            >
+              MÁS...
+            </a>
+
+          </div>
+
+        </article>
+
+        <article class="persona">
+
+          <a
+            class="persona-image-link"
+            href="personalidad-dedalo.html"
+            aria-label="Abrir Dédalo"
+          >
+            <div class="persona-image">
+            <img src="Dedalo.png" alt="Dédalo">
+          </div>
+          </a>
+
+          <div class="persona-info">
+
+            <div class="persona-name">
+              Dédalo
+            </div>
+
+            <div class="persona-description">
+              Mantenimiento y evolución del software de Santuario con pruebas, trazabilidad y reversión.
+            </div>
+
+            <a
+              class="more"
+              href="personalidad-dedalo.html"
+              aria-label="Más información sobre Dédalo"
+            >
+              MÁS...
+            </a>
+
+          </div>
+
+        </article>
+
+        <article class="persona">
+
+          <a
+            class="persona-image-link"
+            href="personalidad-ulises.html"
+            aria-label="Abrir Ulises"
+          >
+            <div class="persona-image">
+            <img src="UlisesPaisaje.jpeg?v=20260923-013422" alt="Ulises">
+          </div>
+          </a>
+
+          <div class="persona-info">
+
+            <div class="persona-name">
+              Ulises
+            </div>
+
+            <div class="persona-description">
+              Exploración y verificación de información técnica con origen, trazabilidad y nivel de fiabilidad.
+            </div>
+
+            <a
+              class="more"
+              href="personalidad-ulises.html"
+              aria-label="Más información sobre Ulises"
+            >
+              MÁS...
+            </a>
+
+          </div>
+
+        </article>
+
+        <article class="persona">
+
+          <a
+            class="persona-image-link"
+            href="personalidad-belerofonte.html"
+            aria-label="Abrir Belerofonte"
+          >
+            <div class="persona-image">
+            <img src="BelerofontePaisaje.jpeg?v=20260923-013422" alt="Belerofonte">
+          </div>
+          </a>
+
+          <div class="persona-info">
+
+            <div class="persona-name">
+              Belerofonte
+            </div>
+
+            <div class="persona-description">
+              Defensa de Santuario mediante observación, análisis, evidencia y medidas defensivas proporcionales.
+            </div>
+
+            <a
+              class="more"
+              href="personalidad-belerofonte.html"
+              aria-label="Más información sobre Belerofonte"
+            >
+              MÁS...
+            </a>
+
+          </div>
+
+        </article>
+
+        <article class="persona">
+
+          <a
+            class="persona-image-link"
+            href="personalidad-quimera.html"
+            aria-label="Abrir Quimera"
+          >
+            <div class="persona-image">
+            <img src="QuimeraPaisaje.jpeg?v=20260923-013422" alt="Quimera">
+          </div>
+          </a>
+
+          <div class="persona-info">
+
+            <div class="persona-name">
+              Quimera
+            </div>
+
+            <div class="persona-description">
+              Personalidad adversarial controlada del Coliseo para poner a prueba las defensas de Santuario.
+            </div>
+
+            <a
+              class="more"
+              href="personalidad-quimera.html"
+              aria-label="Más información sobre Quimera"
+            >
+              MÁS...
+            </a>
+
+          </div>
+
+        </article>
+
+        <article class="persona">
+
+          <a
+            class="persona-image-link"
+            href="personalidad-apate.html"
+            aria-label="Abrir Apate"
+          >
+            <div class="persona-image">
+            <img src="Apate.png" alt="Apate">
+          </div>
+          </a>
+
+          <div class="persona-info">
+
+            <div class="persona-name">
+              Apate
+            </div>
+
+            <div class="persona-description">
+              Retórica y contra-ingeniería social defensiva para analizar discursos y simular engaños controlados.
+            </div>
+
+            <a
+              class="more"
+              href="personalidad-apate.html"
+              aria-label="Más información sobre Apate"
+            >
+              MÁS...
+            </a>
+
+          </div>
+
+        </article>
+
+        <article class="persona">
+
+          <a
+            class="persona-image-link"
+            href="personalidad-hefesto.html"
+            aria-label="Abrir Hefesto"
+          >
+            <div class="persona-image">
+            <img src="Hefesto.jpeg?v=20260922-081720" alt="Hefesto">
+          </div>
+          </a>
+
+          <div class="persona-info">
+
+            <div class="persona-name">
+              Hefesto
+            </div>
+
+            <div class="persona-description">
+              Arquitectura para control remoto de robots y dispositivos electrónicos y electromecánicos.
+            </div>
+
+            <a
+              class="more"
+              href="personalidad-hefesto.html"
+              aria-label="Más información sobre Hefesto"
+            >
+              MÁS...
+            </a>
+
+          </div>
+
+        </article>
+
+
+      </section>
+
+
+      <nav class="bottom">
+
+        <a href="scal-santuario.html">
+          ← Santuario
+        </a>
+
+        <a href="coliseo.html">
+          Coliseo →
+        </a>
+
+      </nav>
+
+    </main>
+
+  </div>
+
+</body>
+</html>

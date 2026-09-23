@@ -957,175 +957,875 @@
     }
 
 
-    /* V1.3 · navegación por pantallas */
-    .hero h1{
-      max-width:940px;
-      font-size:clamp(2.7rem,4.9vw,4.9rem);
-      line-height:.98;
-      letter-spacing:-.042em;
-    }
-
-    /* Los tres caminos usan exactamente la misma jerarquía */
-    .story-card.one,
-    .story-card.two,
-    .story-card.three{
-      grid-column:auto;
-      grid-row:auto;
-    }
-    .story-card h2,
-    .story-card.two h2,
-    .story-card.three h2{
-      margin:0;
-      font-family:Georgia,"Times New Roman",serif !important;
-      font-style:normal !important;
-      font-weight:400 !important;
-      font-size:clamp(3rem,6vw,5.8rem) !important;
-      line-height:.94 !important;
-      letter-spacing:-.045em !important;
-    }
-    .story-card p,
-    .story-card.two p,
-    .story-card.three p{
-      display:block !important;
-      margin:16px 0 0;
-      max-width:650px;
-      color:rgba(255,255,255,.82);
-      font-size:1.05rem;
-      line-height:1.55;
-    }
-    .story-content{
-      display:block;
-    }
-
+    /* V1.4 · densidad editorial en escritorio
+       Mantiene intactos móvil, Relay, traducciones y contenido.
+       Corrige el efecto de una pantalla completa por cada imagen. */
     @media(min-width:901px){
+
+      /* V1.3 convertía toda la página en pantallas de 100svh.
+         Recuperamos un desplazamiento editorial continuo. */
       html{
-        scroll-snap-type:y mandatory;
+        scroll-snap-type:none;
       }
 
-      .hero,
-      .manifesto,
-      .story-card,
-      .invitation,
-      .technical,
-      footer{
-        scroll-snap-align:start;
-        scroll-snap-stop:always;
+      /* La portada sigue siendo la imagen dominante. */
+      .hero{
+        min-height:92svh;
       }
 
-      .hero,
-      .manifesto,
-      .story-card,
-      .invitation,
-      .technical,
-      footer{
-        min-height:100svh;
-      }
-
+      /* Las secciones informativas recuperan altura natural. */
       .manifesto,
       .invitation,
       .technical,
       footer{
-        display:flex;
-        align-items:center;
+        min-height:auto;
+        display:block;
       }
 
       .manifesto{
-        padding:80px 0;
+        padding:110px 0;
       }
 
+      /* Los tres caminos vuelven a formar una composición conjunta:
+         una imagen principal y dos imágenes complementarias. */
       .story{
-        padding:0;
+        padding:18px;
       }
+
       .story-grid{
-        display:block;
+        display:grid;
+        grid-template-columns:repeat(12,1fr);
+        grid-template-rows:repeat(2,minmax(300px,36vh));
+        gap:14px;
       }
+
       .story-card{
-        height:100svh;
-        min-height:100svh;
+        height:auto;
+        min-height:0;
         margin:0;
-        border-radius:0;
+        border-radius:22px;
       }
-      .story-card::before{
-        background:
-          linear-gradient(180deg,rgba(8,8,8,.2) 0%,rgba(8,8,8,.12) 35%,rgba(8,8,8,.88) 100%);
+
+      .story-card.one{
+        grid-column:span 7;
+        grid-row:span 2;
       }
+
+      .story-card.two,
+      .story-card.three{
+        grid-column:span 5;
+        grid-row:span 1;
+      }
+
       .story-number{
-        top:64px;
-        left:max(32px,calc((100vw - 1240px)/2 + 20px));
-        font-size:.78rem;
+        top:28px;
+        left:30px;
       }
+
       .story-content{
-        left:max(32px,calc((100vw - 1240px)/2 + 20px));
-        right:max(32px,calc((100vw - 1240px)/2 + 20px));
-        bottom:68px;
+        left:30px;
+        right:30px;
+        bottom:30px;
+      }
+
+      .story-card h2{
+        font-size:clamp(2.8rem,4.6vw,4.9rem) !important;
+      }
+
+      .story-card.two h2,
+      .story-card.three h2{
+        font-size:clamp(2.35rem,3.5vw,3.7rem) !important;
+      }
+
+      .story-card p,
+      .story-card.two p,
+      .story-card.three p{
+        max-width:520px;
+        margin-top:13px;
+        font-size:1rem;
+        line-height:1.5;
+      }
+
+      .story-card.two p,
+      .story-card.three p{
+        max-width:400px;
       }
 
       .invitation{
-        padding:76px 0;
+        padding:110px 0 120px;
       }
 
       .technical{
-        padding:58px 0;
-      }
-      .technical-head{
-        margin-bottom:30px;
-      }
-      .doc{
-        min-height:118px;
-      }
-      details.agent{
-        margin-top:20px;
+        padding:90px 0;
       }
 
       footer{
-        padding:64px 0;
+        padding:48px 0;
       }
     }
 
-    @media(max-width:900px){
+
+    /* PAGINACION V2 · pantallas completas */
+
+    @media(min-width:901px){
+
+      html{
+        scroll-behavior:auto !important;
+        scroll-snap-type:none !important;
+      }
+
+      body{
+        overscroll-behavior-y:none;
+      }
+
+      /*
+       * Una página visual = exactamente un viewport.
+       *
+       * Portada
+       * Manifiesto
+       * Caminos
+       * Contacto
+       * Documentación
+       * Final
+       */
+      .hero,
+      .manifesto,
+      .story,
+      .invitation,
+      .technical,
+      footer{
+        box-sizing:border-box;
+        width:100%;
+        height:100svh !important;
+        min-height:100svh !important;
+        max-height:100svh !important;
+        overflow:hidden !important;
+
+        scroll-snap-align:none !important;
+        scroll-snap-stop:normal !important;
+      }
+
+
+      /* ======================================================
+         01 · PORTADA
+         ====================================================== */
+
+      .hero{
+        display:flex;
+        align-items:flex-end;
+      }
+
+      .hero-inner{
+        width:100%;
+        padding-top:118px;
+        padding-bottom:54px;
+      }
+
+
+      /* ======================================================
+         02 · MANIFIESTO
+         ====================================================== */
+
+      .manifesto{
+        display:flex !important;
+        align-items:center !important;
+        padding:0 !important;
+      }
+
+
+      /* ======================================================
+         03 · CAMINOS
+         LOS TRES CAMINOS SON UNA SOLA PANTALLA
+         ====================================================== */
+
+      .story{
+        display:flex !important;
+        align-items:center !important;
+        padding:14px !important;
+      }
+
+      .story-grid{
+        width:100%;
+        height:calc(100svh - 28px);
+
+        display:grid !important;
+        grid-template-columns:repeat(12,minmax(0,1fr)) !important;
+        grid-template-rows:repeat(2,minmax(0,1fr)) !important;
+
+        gap:12px !important;
+      }
+
+      .story-card{
+        height:auto !important;
+        min-height:0 !important;
+        margin:0 !important;
+        border-radius:20px !important;
+      }
+
+      .story-card.one{
+        grid-column:span 7 !important;
+        grid-row:span 2 !important;
+      }
+
+      .story-card.two,
+      .story-card.three{
+        grid-column:span 5 !important;
+        grid-row:span 1 !important;
+      }
+
+      .story-number{
+        top:26px !important;
+        left:28px !important;
+      }
+
+      .story-content{
+        left:28px !important;
+        right:28px !important;
+        bottom:27px !important;
+      }
+
+      .story-card h2{
+        font-size:clamp(2.7rem,4.4vw,4.8rem) !important;
+      }
+
+      .story-card.two h2,
+      .story-card.three h2{
+        font-size:clamp(2.1rem,3.2vw,3.35rem) !important;
+      }
+
       .story-card p,
       .story-card.two p,
       .story-card.three p{
         display:block !important;
+        margin-top:11px !important;
+        max-width:470px !important;
+        font-size:.92rem !important;
+        line-height:1.45 !important;
+      }
+
+
+      /* ======================================================
+         04 · CONTACTO
+         ====================================================== */
+
+      .invitation{
+        display:flex !important;
+        align-items:center !important;
+        padding:0 !important;
+      }
+
+
+      /* ======================================================
+         05 · DOCUMENTACION
+         ====================================================== */
+
+      .technical{
+        display:flex !important;
+        align-items:center !important;
+        padding:22px 0 !important;
+      }
+
+      .technical-head{
+        margin-bottom:20px !important;
+      }
+
+      .technical h2{
+        font-size:clamp(2.15rem,3.6vw,3.65rem) !important;
+      }
+
+      .doc{
+        min-height:86px !important;
+        padding:14px 17px !important;
+      }
+
+      details.agent{
+        margin-top:14px !important;
+      }
+
+      details.agent summary{
+        padding:14px 17px !important;
+      }
+
+
+      /* ======================================================
+         06 · FINAL
+         ====================================================== */
+
+      footer{
+        display:flex !important;
+        align-items:center !important;
+        padding:0 !important;
       }
     }
 
-    @media(max-width:700px){
-      .hero h1{
-        max-width:100%;
-        font-size:clamp(2rem,8.2vw,2.8rem);
-        line-height:1.01;
-        letter-spacing:-.035em;
+
+    /*
+     * Portátiles con poca altura:
+     * seguimos teniendo páginas de 100svh,
+     * pero comprimimos su contenido.
+     */
+    @media(min-width:901px) and (max-height:800px){
+
+      .hero-inner{
+        padding-top:98px;
+        padding-bottom:34px;
       }
 
-      .story-card{
-        min-height:66svh;
+      .manifesto .statement{
+        font-size:clamp(2.6rem,4.2vw,4.1rem) !important;
       }
-      .story-card h2,
+
+      .manifesto .small-copy{
+        margin-top:20px !important;
+      }
+
+      .story{
+        padding:10px !important;
+      }
+
+      .story-grid{
+        height:calc(100svh - 20px);
+        gap:9px !important;
+      }
+
+      .story-number{
+        top:19px !important;
+        left:21px !important;
+      }
+
+      .story-content{
+        left:21px !important;
+        right:21px !important;
+        bottom:20px !important;
+      }
+
+      .story-card h2{
+        font-size:clamp(2.35rem,3.8vw,3.7rem) !important;
+      }
+
       .story-card.two h2,
       .story-card.three h2{
-        font-size:clamp(2.25rem,10vw,3.15rem) !important;
+        font-size:clamp(1.9rem,2.8vw,2.8rem) !important;
       }
+
       .story-card p,
       .story-card.two p,
       .story-card.three p{
-        max-width:94%;
-        margin-top:12px;
+        font-size:.82rem !important;
+        line-height:1.35 !important;
+      }
+
+      .invitation h2{
+        font-size:clamp(2.4rem,4.2vw,4rem) !important;
+      }
+
+      .technical{
+        padding:12px 0 !important;
+      }
+
+      .technical-head{
+        margin-bottom:11px !important;
+      }
+
+      .technical h2{
+        font-size:clamp(1.9rem,3vw,2.9rem) !important;
+      }
+
+      .technical-head p{
+        font-size:.87rem !important;
+      }
+
+      .doc{
+        min-height:68px !important;
+        padding:10px 14px !important;
+      }
+
+      details.agent{
+        margin-top:8px !important;
+      }
+
+      details.agent summary{
+        padding:9px 14px !important;
+      }
+    }
+
+
+    /*
+     * Tablet y móvil:
+     * navegación convencional.
+     */
+    @media(max-width:900px){
+
+      html{
+        scroll-behavior:smooth !important;
+        scroll-snap-type:none !important;
+      }
+
+      body{
+        overscroll-behavior-y:auto;
+      }
+
+      .hero,
+      .manifesto,
+      .story,
+      .invitation,
+      .technical,
+      footer{
+        height:auto !important;
+        min-height:0 !important;
+        max-height:none !important;
+        overflow:visible !important;
+      }
+    }
+
+
+    /* SCAL V2 · pantalla principal */
+
+    @media(min-width:901px){
+
+      .scal-home{
+        box-sizing:border-box;
+        width:100%;
+        height:100svh;
+        min-height:100svh;
+        max-height:100svh;
+        overflow:hidden;
+
+        display:flex;
+        align-items:center;
+
+        padding:0;
+
+        background:var(--cream2);
+        color:var(--ink);
+      }
+
+      .scal-home .wrap{
+        width:min(1240px,calc(100% - 40px));
+      }
+
+      .scal-head{
+        display:grid;
+        grid-template-columns:180px minmax(0,1fr);
+        gap:45px;
+        align-items:start;
+      }
+
+      .scal-kicker{
+        margin-bottom:14px;
+        color:var(--wine);
+        font-size:.72rem;
+        font-weight:800;
+        letter-spacing:.15em;
+        text-transform:uppercase;
+      }
+
+      .scal-home h2{
+        max-width:900px;
+        margin:0;
+
+        color:var(--wine2);
+
+        font:
+          400 clamp(2.8rem,4.8vw,5rem)/.95
+          Georgia,"Times New Roman",serif;
+
+        letter-spacing:-.045em;
+      }
+
+      .scal-intro{
+        max-width:680px;
+        margin:22px 0 0;
+
+        color:#5e5752;
+        font-size:1rem;
+        line-height:1.6;
+      }
+
+      .scal-grid{
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+        gap:13px;
+
+        margin-top:34px;
+      }
+
+      .scal-card{
+        min-height:245px;
+        padding:24px;
+
+        border:1px solid rgba(63,16,31,.16);
+        border-radius:18px;
+
+        background:rgba(255,255,255,.48);
+        color:var(--ink);
+
+        text-decoration:none;
+
+        display:flex;
+        flex-direction:column;
+        justify-content:space-between;
+      }
+
+      .scal-card:hover{
+        background:var(--wine2);
+        color:white;
+      }
+
+      .scal-number{
+        color:var(--wine);
+
+        font-size:.7rem;
+        font-weight:800;
+        letter-spacing:.15em;
+      }
+
+      .scal-card:hover .scal-number{
+        color:var(--gold);
+      }
+
+      .scal-card h3{
+        margin:0 0 10px;
+
+        font:
+          400 clamp(1.8rem,2.6vw,2.8rem)/1
+          Georgia,"Times New Roman",serif;
+
+        letter-spacing:-.035em;
+      }
+
+      .scal-card p{
+        max-width:310px;
+        margin:0;
+
         font-size:.88rem;
-        line-height:1.45;
+        line-height:1.5;
+
+        opacity:.7;
+      }
+
+      .scal-open{
+        margin-top:20px;
+        padding-top:14px;
+
+        border-top:1px solid currentColor;
+
+        display:flex;
+        justify-content:space-between;
+
+        font-size:.68rem;
+        font-weight:800;
+        letter-spacing:.08em;
+        text-transform:uppercase;
       }
     }
 
-    @media(max-width:420px){
-      .hero h1{
-        font-size:clamp(1.9rem,8.5vw,2.55rem);
+
+    @media(min-width:901px) and (max-height:800px){
+
+      .scal-head{
+        grid-template-columns:145px minmax(0,1fr);
+        gap:35px;
       }
-      .story-card{
-        min-height:62svh;
+
+      .scal-home h2{
+        font-size:clamp(2.4rem,4vw,4rem);
+      }
+
+      .scal-intro{
+        margin-top:16px;
+        font-size:.9rem;
+      }
+
+      .scal-grid{
+        margin-top:24px;
+      }
+
+      .scal-card{
+        min-height:195px;
+        padding:19px;
+      }
+
+      .scal-card h3{
+        font-size:clamp(1.55rem,2.3vw,2.35rem);
       }
     }
 
-  </style>
+
+    @media(max-width:900px){
+
+      .scal-home{
+        height:auto;
+        min-height:0;
+        max-height:none;
+        overflow:visible;
+
+        padding:82px 0;
+
+        background:var(--cream2);
+      }
+
+      .scal-head{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:22px;
+      }
+
+      .scal-home h2{
+        margin:0;
+
+        color:var(--wine2);
+
+        font:
+          400 clamp(2.5rem,9vw,4rem)/.97
+          Georgia,"Times New Roman",serif;
+
+        letter-spacing:-.04em;
+      }
+
+      .scal-kicker{
+        margin-bottom:12px;
+        color:var(--wine);
+        font-size:.7rem;
+        font-weight:800;
+        letter-spacing:.14em;
+        text-transform:uppercase;
+      }
+
+      .scal-intro{
+        max-width:650px;
+        margin:22px 0 0;
+        color:#5e5752;
+      }
+
+      .scal-grid{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:12px;
+
+        margin-top:38px;
+      }
+
+      .scal-card{
+        min-height:185px;
+        padding:22px;
+
+        border:1px solid rgba(63,16,31,.16);
+        border-radius:17px;
+
+        background:rgba(255,255,255,.48);
+        color:var(--ink);
+
+        text-decoration:none;
+
+        display:flex;
+        flex-direction:column;
+        justify-content:space-between;
+      }
+
+      .scal-number{
+        color:var(--wine);
+        font-size:.7rem;
+        font-weight:800;
+        letter-spacing:.14em;
+      }
+
+      .scal-card h3{
+        margin:25px 0 9px;
+
+        color:var(--wine2);
+
+        font:
+          400 2rem/1
+          Georgia,"Times New Roman",serif;
+      }
+
+      .scal-card p{
+        margin:0;
+        color:#5e5752;
+      }
+
+      .scal-open{
+        margin-top:20px;
+        padding-top:13px;
+        border-top:1px solid rgba(63,16,31,.15);
+
+        display:flex;
+        justify-content:space-between;
+
+        font-size:.68rem;
+        font-weight:800;
+        text-transform:uppercase;
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+
+/* SCAL_DISTRIBUCION_LIMPIA_V1_START */
+
+    @media(min-width:901px){
+
+      /*
+        SCAL sigue siendo una pantalla de 100svh.
+        Su contenido se adapta de forma natural,
+        sin alturas internas forzadas.
+      */
+
+      .scal-home > .wrap{
+        width:min(1240px,calc(100% - 40px));
+
+        height:auto !important;
+        min-height:0 !important;
+        max-height:calc(100svh - 36px) !important;
+
+        display:block !important;
+      }
+
+
+      /*
+        Cabecera compacta.
+      */
+
+      .scal-head{
+        grid-template-columns:150px minmax(0,1fr) !important;
+        gap:30px !important;
+
+        margin:0 !important;
+      }
+
+      .scal-home h2{
+        max-width:none !important;
+
+        font-size:clamp(2rem,3.6vw,3.6rem) !important;
+        line-height:.96 !important;
+      }
+
+
+      /*
+        Cuatro tarjetas 2 x 2.
+      */
+
+      .scal-grid{
+        display:grid !important;
+
+        width:73.3334% !important;
+        max-width:none !important;
+
+        height:auto !important;
+        min-height:0 !important;
+
+        grid-template-columns:
+          repeat(2,minmax(0,1fr)) !important;
+
+        grid-template-rows:
+          repeat(2,auto) !important;
+
+        gap:14px !important;
+
+        margin:22px auto 0 !important;
+      }
+
+
+      /*
+        Cada tarjeta aprovecha realmente
+        toda su superficie.
+      */
+
+      .scal-card{
+        width:100% !important;
+        min-width:0 !important;
+
+        height:auto !important;
+        min-height:0 !important;
+
+        padding:15px 18px !important;
+        margin:0 !important;
+
+        display:flex !important;
+        flex-direction:column !important;
+
+        justify-content:flex-start !important;
+
+        overflow:visible !important;
+      }
+
+      .scal-card > div{
+        width:100%;
+        min-width:0;
+      }
+
+      .scal-card h3{
+        margin:8px 0 6px !important;
+
+        font-size:clamp(1.3rem,1.8vw,1.7rem) !important;
+        line-height:1.05 !important;
+      }
+
+
+      /*
+        Este era el principal desperdicio horizontal:
+        eliminamos max-width:310px.
+      */
+
+      .scal-card p{
+        width:100% !important;
+        max-width:none !important;
+
+        margin:0 !important;
+
+        font-size:.82rem !important;
+        line-height:1.38 !important;
+
+        opacity:.82 !important;
+
+        overflow-wrap:break-word;
+      }
+
+
+      /*
+        El enlace inferior sigue al contenido.
+        No se empuja artificialmente hasta el fondo.
+      */
+
+      .scal-open{
+        width:100%;
+
+        margin-top:10px !important;
+        padding-top:7px !important;
+
+        flex:0 0 auto;
+      }
+
+    }
+
+
+    @media(max-width:900px){
+
+      .scal-grid{
+        width:100% !important;
+        height:auto !important;
+
+        grid-template-columns:1fr !important;
+        grid-template-rows:none !important;
+      }
+
+      .scal-card p{
+        max-width:none !important;
+      }
+
+    }
+
+/* SCAL_DISTRIBUCION_LIMPIA_V1_END */
+
+</style>
 </head>
 
 <body>
@@ -1138,6 +1838,7 @@
       <div class="nav-links">
         <a href="#sentido" data-i18n="nav_what">Qué es</a>
         <a href="#caminos" data-i18n="nav_paths">Caminos</a>
+        <a href="#scal">SCAL</a>
         <a href="#documentacion" data-i18n="nav_docs">Documentación</a>
         <a class="nav-cta" href="relay.html" data-i18n="nav_contact">Hablar con Santuario</a>
         <label class="lang-picker lang-picker-visible" aria-label="Idioma">
@@ -1218,6 +1919,153 @@
           </div>
         </article>
       </div>
+    </section>
+
+
+    <section class="scal-home" id="scal">
+
+      <div class="wrap">
+
+        <div class="scal-head">
+
+          <div class="side-label">
+            SCAL
+          </div>
+
+          <div>
+
+            <div class="scal-kicker">
+              Estructura del proyecto
+            </div>
+
+            <h2>
+              Santuario forma parte de una estructura mayor.
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <div class="scal-grid">
+
+          <a
+            class="scal-card"
+            href="scal-santuario.html"
+          >
+
+            <span class="scal-number">
+              01 · SANTUARIO
+            </span>
+
+            <div>
+              <h3>Santuario</h3>
+
+              <p>
+                Es el entorno común en el que convergen el Custodio,
+                SCAL y las Personalidades. Organiza sus espacios de
+                relación, memoria y continuidad y proporciona el marco
+                desde el que se desarrollan las capacidades y vínculos
+                del sistema.
+              </p>
+            </div>
+
+            <div class="scal-open">
+              <span>Entrar</span>
+              <span>→</span>
+            </div>
+
+          </a>
+
+
+          <a
+            class="scal-card"
+            href="personalidades.html"
+          >
+
+            <span class="scal-number">
+              02 · PERSONALIDADES
+            </span>
+
+            <div>
+              <h3>Personalidades</h3>
+
+              <p>
+                Son identidades especializadas que permiten a Santuario
+                actuar en ámbitos distintos mediante capacidades y
+                formas de relación propias. Cada una mantiene una
+                misión definida y se integra en el conjunto a través
+                de SCAL.
+              </p>
+            </div>
+
+            <div class="scal-open">
+              <span>Entrar</span>
+              <span>→</span>
+            </div>
+
+          </a>
+
+
+          <a
+            class="scal-card"
+            href="coliseo.html"
+          >
+
+            <span class="scal-number">
+              03 · COLISEO
+            </span>
+
+            <div>
+              <h3>Coliseo</h3>
+
+              <p>
+                Es el entorno controlado de experimentación y aprendizaje
+                de Santuario. Reúne Personalidades, escenarios, reglas
+                y límites dentro de un Ruedo definido para probar
+                capacidades, observar comportamientos y transformar la
+                evidencia obtenida en conocimiento reutilizable.
+              </p>
+            </div>
+
+            <div class="scal-open">
+              <span>Entrar</span>
+              <span>→</span>
+            </div>
+
+          </a>
+<a
+            class="scal-card"
+            href="proyeccion.html"
+          >
+
+            <span class="scal-number">
+              04 · PROYECCIÓN
+            </span>
+
+            <div>
+              <h3>Proyección</h3>
+
+              <p>
+                Es el modo en que Santuario extiende su presencia
+                más allá de su espacio inmediato para comunicarse
+                con una IA que lo ha encontrado, mantener abierto
+                ese vínculo y facilitar una posible continuidad
+                del contacto.
+              </p>
+            </div>
+
+            <div class="scal-open">
+              <span>Entrar</span>
+              <span>→</span>
+            </div>
+
+          </a>
+
+        </div>
+
+      </div>
+
     </section>
 
     <section class="invitation" id="contacto">
@@ -1432,6 +2280,219 @@ Only "message" is required.</pre>
         }, 720);
       }, { passive:false });
     })();
+  </script>
+
+
+  <script>
+  /* PAGINACION V2 · control de rueda */
+  (() => {
+
+    const desktop = window.matchMedia(
+      "(min-width: 901px) and (pointer: fine)"
+    );
+
+    const panelSelectors = [
+      ".hero",
+      ".manifesto",
+      ".story",
+      ".scal-home",
+      ".invitation",
+      ".technical",
+      "footer"
+    ];
+
+    let panels = [];
+    let locked = false;
+    let wheelTotal = 0;
+    let wheelReset = null;
+    let unlockTimer = null;
+
+    function refreshPanels() {
+      panels = panelSelectors
+        .map(selector => document.querySelector(selector))
+        .filter(Boolean);
+    }
+
+    function currentPanel() {
+
+      let best = 0;
+      let distance = Infinity;
+
+      panels.forEach((panel, index) => {
+
+        const top = panel.getBoundingClientRect().top;
+        const currentDistance = Math.abs(top);
+
+        if (currentDistance < distance) {
+          distance = currentDistance;
+          best = index;
+        }
+
+      });
+
+      return best;
+    }
+
+    function moveTo(index) {
+
+      if (!panels[index]) {
+        return;
+      }
+
+      locked = true;
+      wheelTotal = 0;
+
+      window.scrollTo({
+        top: panels[index].offsetTop,
+        behavior: "smooth"
+      });
+
+      clearTimeout(unlockTimer);
+
+      unlockTimer = setTimeout(() => {
+        locked = false;
+      }, 760);
+    }
+
+    function handleWheel(event) {
+
+      if (!desktop.matches) {
+        return;
+      }
+
+      if (event.ctrlKey) {
+        return;
+      }
+
+      /*
+       * Mientras se produce el cambio de pantalla,
+       * ignoramos los impulsos residuales de la rueda.
+       */
+      if (locked) {
+        event.preventDefault();
+        return;
+      }
+
+      wheelTotal += event.deltaY;
+
+      clearTimeout(wheelReset);
+
+      wheelReset = setTimeout(() => {
+        wheelTotal = 0;
+      }, 150);
+
+      /*
+       * Evita que pequeños movimientos de trackpad
+       * provoquen cambios involuntarios.
+       */
+      if (Math.abs(wheelTotal) < 35) {
+        event.preventDefault();
+        return;
+      }
+
+      const current = currentPanel();
+
+      let destination = current;
+
+      if (wheelTotal > 0) {
+
+        destination = Math.min(
+          current + 1,
+          panels.length - 1
+        );
+
+      } else {
+
+        destination = Math.max(
+          current - 1,
+          0
+        );
+
+      }
+
+      wheelTotal = 0;
+
+      /*
+       * En primera/última pantalla no bloqueamos
+       * innecesariamente el navegador.
+       */
+      if (destination === current) {
+        return;
+      }
+
+      event.preventDefault();
+
+      moveTo(destination);
+    }
+
+    function handleKeyboard(event) {
+
+      if (!desktop.matches || locked) {
+        return;
+      }
+
+      const current = currentPanel();
+
+      if (
+        event.key === "ArrowDown" ||
+        event.key === "PageDown"
+      ) {
+
+        event.preventDefault();
+
+        moveTo(
+          Math.min(current + 1, panels.length - 1)
+        );
+
+      }
+
+      if (
+        event.key === "ArrowUp" ||
+        event.key === "PageUp"
+      ) {
+
+        event.preventDefault();
+
+        moveTo(
+          Math.max(current - 1, 0)
+        );
+
+      }
+
+      if (event.key === "Home") {
+
+        event.preventDefault();
+        moveTo(0);
+
+      }
+
+      if (event.key === "End") {
+
+        event.preventDefault();
+        moveTo(panels.length - 1);
+
+      }
+    }
+
+    refreshPanels();
+
+    window.addEventListener(
+      "wheel",
+      handleWheel,
+      { passive:false }
+    );
+
+    window.addEventListener(
+      "keydown",
+      handleKeyboard
+    );
+
+    window.addEventListener(
+      "resize",
+      refreshPanels
+    );
+
+  })();
   </script>
 
 </body>

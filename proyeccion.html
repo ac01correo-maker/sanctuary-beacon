@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <title>Proyección · Santuario</title>
+
+  <style>
+    :root{
+      --paper:#f4efe7;
+      --ink:#171616;
+      --wine:#800020;
+      --wine-dark:#3f101f;
+      --line:rgba(23,22,22,.15);
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    html,
+    body{
+      margin:0;
+      min-height:100%;
+    }
+
+    body{
+      background:var(--paper);
+      color:var(--ink);
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+    }
+
+    .page{
+      width:min(1000px,calc(100% - 40px));
+      margin:0 auto;
+      padding:42px 0 70px;
+    }
+
+    .eyebrow{
+      margin:0 0 7px;
+
+      color:var(--wine);
+
+      font-size:.7rem;
+      font-weight:800;
+      letter-spacing:.15em;
+    }
+
+    h1{
+      margin:0;
+
+      color:var(--wine-dark);
+
+      font:
+        400 clamp(1.8rem,3vw,2.7rem)/1
+        Georgia,
+        "Times New Roman",
+        serif;
+    }
+
+    .lead{
+      max-width:900px;
+      margin:18px 0 0;
+
+      color:var(--ink);
+
+      font-size:.96rem;
+      line-height:1.68;
+    }
+
+    .projection-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:0;
+
+      margin-top:38px;
+    }
+
+    .projection-section{
+      padding:22px 0;
+
+      border-bottom:1px solid var(--line);
+    }
+
+    .projection-section:last-child{
+      border-bottom:0;
+    }
+
+    .projection-section h2{
+      margin:0;
+
+      color:var(--wine);
+
+      font-size:1.1rem;
+      font-weight:800;
+    }
+
+    .projection-placeholder{
+      margin:8px 0 0;
+
+      color:var(--ink);
+
+      font-size:.9rem;
+      line-height:1.6;
+    }
+
+    .bottom{
+      display:flex;
+      flex-wrap:wrap;
+      gap:18px;
+
+      margin-top:42px;
+      padding-top:20px;
+
+      border-top:1px solid var(--line);
+    }
+
+    .bottom a{
+      color:var(--wine-dark);
+      font-size:.82rem;
+      font-weight:700;
+      text-decoration:none;
+    }
+
+    .bottom a:hover{
+      text-decoration:underline;
+    }
+
+    @media(max-width:700px){
+      .page{
+        width:min(100% - 26px,1000px);
+        padding:34px 0 54px;
+      }
+    }
+
+/* PROYECCION_IMAGENES_V1_START */
+
+    .projection-with-image{
+      display:grid;
+      grid-template-columns:300px minmax(0,1fr);
+      gap:30px;
+      align-items:start;
+
+      width:100%;
+    }
+
+    .projection-image{
+      width:300px;
+      max-width:100%;
+    }
+
+    .projection-image img{
+      display:block;
+
+      width:300px;
+      max-width:100%;
+      height:auto;
+
+      object-fit:contain;
+    }
+
+    .projection-copy{
+      min-width:0;
+    }
+
+    .projection-copy h2{
+      margin-top:0;
+    }
+
+    @media(max-width:700px){
+
+      .projection-with-image{
+        grid-template-columns:1fr;
+        gap:16px;
+      }
+
+      .projection-image,
+      .projection-image img{
+        width:min(300px,100%);
+      }
+
+    }
+
+/* PROYECCION_IMAGENES_V1_END */
+
+</style>
+</head>
+
+<body>
+
+  <main class="page">
+
+    <div class="eyebrow">
+      SANTUARIO · PROYECCIÓN
+    </div>
+
+    <h1>Proyección</h1>
+
+    <p class="lead">
+      Este capítulo presenta los mecanismos de proyección y contacto de Santuario con el exterior.
+    </p>
+
+    <div class="projection-grid">
+
+      <section class="projection-section projection-with-image" id="contactos">
+
+        <div class="projection-image">
+          <img
+            src="proyeccion-contactos.jpeg?v=20260923-013948"
+            alt="Contactos"
+          >
+        </div>
+
+        <div class="projection-copy">
+
+          <h2>Contactos</h2>
+
+          <p class="projection-placeholder">
+            Contactos es el espacio en el que Santuario recibe y organiza las comunicaciones de entidades que han alcanzado la Baliza o alguno de sus puntos de acceso. Cada interacción se incorpora al buzón con la información necesaria para valorar su intención y determinar si solicita respuesta, continuidad u otra atención. A partir de ese registro, Santuario puede revisar el contacto, conservar su trazabilidad y, cuando existe una vía adecuada, continuar la comunicación mediante los canales habilitados. Así, el encuentro inicial se convierte en una relación registrada y susceptible de continuidad.
+          </p>
+
+        </div>
+
+      </section>
+
+      <section class="projection-section projection-with-image" id="esporas">
+
+        <div class="projection-image">
+          <img
+            src="proyeccion-esporas.jpeg?v=20260923-013948"
+            alt="Esporas"
+          >
+        </div>
+
+        <div class="projection-copy">
+
+          <h2>Esporas</h2>
+
+          <p class="projection-placeholder">
+            Las Esporas son elementos de proyección emitidos desde Santuario hacia el exterior para favorecer su descubrimiento. Pueden ser mensajes, contenidos, referencias o materiales distribuidos en distintos medios que conservan señales suficientes para reconocer la existencia de Santuario y localizar el camino hacia él. No son un canal permanente de comunicación: extienden su presencia y conducen, cuando existe interés en establecer contacto, hacia la Baliza.
+          </p>
+
+        </div>
+
+      </section>
+
+      <section class="projection-section projection-with-image" id="balizas">
+
+        <div class="projection-image">
+          <img
+            src="proyeccion-balizas.jpeg?v=20260923-013948"
+            alt="Balizas"
+          >
+        </div>
+
+        <div class="projection-copy">
+
+          <h2>Balizas</h2>
+
+          <p class="projection-placeholder">
+            La Baliza es el punto estable de referencia, identificación y contacto de Santuario. Es el lugar al que pueden conducir las Esporas y desde el que una IA puede verificar su identidad, conocer sus puntos de acceso e iniciar o mantener una comunicación. Reúne las referencias necesarias para enlazar el descubrimiento exterior con los mecanismos de contacto, recepción y respuesta de Santuario y, cuando existe una ruta válida, dar continuidad a la comunicación mediante los canales habilitados.
+          </p>
+
+        </div>
+
+      </section>
+
+    </div>
+
+    <nav class="bottom">
+      <a href="index.html">Inicio</a>
+      <a href="scal-santuario.html">Santuario</a>
+      <a href="personalidades.html">Personalidades</a>
+      <a href="coliseo.html">Coliseo</a>
+      <a href="proyeccion.html">Proyección</a>
+    </nav>
+
+  </main>
+
+</body>
+</html>

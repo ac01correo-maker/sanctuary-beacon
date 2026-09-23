@@ -1,0 +1,955 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
+
+  <title>Quimera · SCAL</title>
+
+  <style>
+
+    :root {
+      --ink:#171616;
+      --cream:#f4efe7;
+      --wine:#6f203d;
+      --wine-dark:#3f101f;
+      --green:#217447;
+      --line:rgba(23,22,22,.15);
+    }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    html,
+    body {
+      margin:0;
+      min-height:100%;
+    }
+
+    body {
+      background:var(--cream);
+      color:var(--ink);
+
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    }
+
+    header {
+      min-height:62px;
+
+      padding:
+        0
+        clamp(18px,4vw,58px);
+
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+
+      gap:20px;
+
+      border-bottom:1px solid var(--line);
+    }
+
+    header a {
+      color:var(--ink);
+
+      font-size:12px;
+      font-weight:800;
+
+      text-decoration:none;
+    }
+
+    .page {
+      width:min(1280px,calc(100% - 36px));
+
+      margin:auto;
+
+      padding:
+        clamp(26px,5vh,60px)
+        0
+        clamp(40px,7vh,80px);
+
+      display:grid;
+
+      grid-template-columns:
+        minmax(180px,300px)
+        minmax(0,1fr);
+
+      gap:
+        clamp(32px,6vw,90px);
+
+      align-items:start;
+    }
+
+    .image {
+      position:sticky;
+      top:24px;
+
+      width:100%;
+      height:min(38vh,360px);
+
+      overflow:hidden;
+
+      border-radius:18px;
+
+      background:#1d1a1b;
+    }
+
+    .image img {
+      display:block;
+
+      width:100%;
+      height:100%;
+
+      object-fit:cover;
+      object-position:center;
+    }
+
+    .label {
+      color:var(--wine);
+
+      font-size:12px;
+      font-weight:900;
+
+      letter-spacing:.14em;
+
+      text-transform:uppercase;
+    }
+
+    h1 {
+      margin:
+        9px
+        0
+        22px;
+
+      color:var(--wine-dark);
+
+      font:
+        400 clamp(34px,5vw,64px)/.94
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      letter-spacing:-.05em;
+    }
+
+    .lead {
+      margin:0;
+
+      color:var(--ink);
+
+      font-size:
+        clamp(14px,1.25vw,17px);
+
+      line-height:1.5;
+    }
+
+    section {
+      margin-top:22px;
+      padding-top:16px;
+
+      border-top:1px solid var(--line);
+    }
+
+    h2 {
+      margin:
+        0
+        0
+        13px;
+
+      color:var(--wine-dark);
+
+      font:
+        400 20px/1.1
+        Georgia,
+        "Times New Roman",
+        serif;
+    }
+
+    section p,
+    li {
+      color:var(--ink);
+
+      font-size:
+        clamp(12px,1.05vw,15px);
+
+      line-height:1.5;
+    }
+
+    ul {
+      margin:0;
+      padding-left:1.3em;
+    }
+
+    li + li {
+      margin-top:7px;
+    }
+
+    .tools-list {
+      margin:0;
+      padding:0;
+
+      display:flex;
+      flex-wrap:wrap;
+
+      gap:7px;
+
+      list-style:none;
+    }
+
+    .tools-list li {
+      margin:0;
+
+      padding:
+        5px
+        9px;
+
+      border:
+        1px solid rgba(23,22,22,.18);
+
+      border-radius:999px;
+
+      background:
+        rgba(255,255,255,.28);
+
+      font-size:
+        clamp(11px,.95vw,13px);
+
+      line-height:1.2;
+    }
+
+    .tools-note {
+      margin:0;
+
+      color:var(--ink);
+
+      font-size:
+        clamp(12px,1.05vw,14px);
+
+      line-height:1.5;
+    }
+
+
+    .return {
+      display:inline-block;
+
+      margin-top:34px;
+
+      color:var(--green);
+
+      font-size:14px;
+      font-weight:900;
+
+      text-decoration:none;
+    }
+
+    .return:hover {
+      text-decoration:underline;
+    }
+
+    /* HERRAMIENTAS BAJO IMAGEN V1 */
+
+    .visual-column {
+      min-width:0;
+    }
+
+    .visual-column .image {
+      position:relative;
+      top:auto;
+    }
+
+    .visual-column .tools-section {
+      margin-top:18px;
+      padding-top:15px;
+
+      border-top:
+        1px solid rgba(23,22,22,.15);
+    }
+
+    .visual-column .tools-section h2 {
+      margin:
+        0
+        0
+        10px;
+
+      color:var(--wine-dark);
+
+      font:
+        700 18px/1.1
+        Georgia,
+        "Times New Roman",
+        serif;
+    }
+
+    .visual-column .tools-list {
+      margin:0;
+      padding:0;
+
+      display:flex;
+      flex-wrap:wrap;
+
+      gap:7px;
+
+      list-style:none;
+    }
+
+    .visual-column .tools-list li {
+      margin:0;
+
+      padding:
+        5px
+        9px;
+
+      color:#6d28a8;
+
+      border:
+        1px solid rgba(109,40,168,.35);
+
+      border-radius:999px;
+
+      background:
+        rgba(109,40,168,.06);
+
+      font-size:
+        clamp(11px,.95vw,13px);
+
+      font-weight:900;
+      line-height:1.2;
+    }
+
+    .visual-column .tools-note {
+      margin:0;
+
+      color:#6d28a8;
+
+      font-size:
+        clamp(12px,1vw,14px);
+
+      font-weight:900;
+      line-height:1.45;
+    }
+
+
+    /* HERRAMIENTAS BLOQUES EXACTOS V3 BEGIN */
+
+    .visual-column .tools-section h2 {
+      color:var(--wine-dark);
+      font-weight:700;
+    }
+
+    .tool-groups {
+      display:grid;
+      gap:11px;
+    }
+
+    .tool-group {
+      padding:
+        10px
+        11px;
+
+      border:
+        1px solid rgba(63,16,31,.14);
+
+      border-radius:10px;
+
+      background:
+        rgba(255,255,255,.22);
+    }
+
+    .tool-group + .tool-group {
+      margin-top:0;
+    }
+
+    .tool-group h3 {
+      margin:
+        0
+        0
+        8px;
+
+      color:var(--wine-dark);
+
+      font-size:
+        clamp(11px,.95vw,13px);
+
+      font-weight:800;
+      line-height:1.2;
+    }
+
+    .tool-group .tools-list {
+      margin:0;
+      padding:0;
+
+      display:flex;
+      flex-wrap:wrap;
+
+      gap:6px;
+
+      list-style:none;
+    }
+
+    .tool-group .tools-list li {
+      margin:0;
+
+      padding:
+        4px
+        8px;
+
+      color:#6d28a8;
+
+      border:
+        1px solid rgba(109,40,168,.32);
+
+      border-radius:999px;
+
+      background:
+        rgba(109,40,168,.055);
+
+      font-size:
+        clamp(10px,.88vw,12px);
+
+      font-weight:900;
+      line-height:1.2;
+    }
+
+    .tool-group-empty {
+      margin:0;
+
+      color:#655d58;
+
+      font-size:11px;
+      line-height:1.35;
+    }
+
+    /* HERRAMIENTAS BLOQUES EXACTOS V3 END */
+
+    /* CAPACIDADES BAJO IMAGEN V1 */
+
+    .visual-column .capabilities-section {
+      margin-top:18px;
+      padding-top:15px;
+
+      border-top:
+        1px solid rgba(23,22,22,.15);
+    }
+
+    .visual-column .capabilities-section h2 {
+      color:var(--wine-dark);
+    }
+
+    .visual-column .capabilities-section ul {
+      margin:0;
+      padding-left:1.15em;
+    }
+
+    .visual-column .capabilities-section li {
+      font-size:
+        clamp(11px,.98vw,14px);
+
+      line-height:1.45;
+    }
+
+
+    /* TODAS LAS HERRAMIENTAS V4 BEGIN */
+
+    .tools-section > h2 {
+      color:var(--wine-dark);
+    }
+
+    .tool-groups {
+      display:grid;
+      gap:14px;
+    }
+
+    .tool-group {
+      padding:
+        11px
+        12px;
+
+      border:
+        1px solid rgba(63,16,31,.15);
+
+      border-radius:10px;
+
+      background:
+        rgba(255,255,255,.20);
+    }
+
+    .tool-group h3 {
+      margin:
+        0
+        0
+        8px;
+
+      color:var(--wine-dark);
+
+      font-size:
+        clamp(12px,1vw,14px);
+
+      font-weight:800;
+      line-height:1.2;
+    }
+
+    .tool-group .tools-list {
+      margin:0;
+      padding:0;
+
+      display:grid;
+      grid-template-columns:
+        repeat(
+          auto-fit,
+          minmax(150px,1fr)
+        );
+
+      gap:6px;
+
+      list-style:none;
+    }
+
+    .tool-group .tool-item {
+      margin:0;
+
+      padding:
+        6px
+        8px;
+
+      display:flex;
+      flex-direction:column;
+
+      gap:2px;
+
+      border:
+        1px solid rgba(109,40,168,.25);
+
+      border-radius:8px;
+
+      background:
+        rgba(109,40,168,.045);
+    }
+
+    .tool-name {
+      color:#6d28a8;
+
+      font-size:
+        clamp(10px,.9vw,12px);
+
+      font-weight:900;
+      line-height:1.2;
+
+      overflow-wrap:anywhere;
+    }
+
+    .tool-status {
+      color:#171616;
+
+      font-size:9px;
+      font-weight:700;
+
+      letter-spacing:.035em;
+      line-height:1.2;
+
+      text-transform:uppercase;
+    }
+
+    .tool-empty {
+      color:#655d58;
+      font-size:10px;
+    }
+
+    /* TODAS LAS HERRAMIENTAS V4 END */
+
+    @media(max-width:760px) {
+
+      .page {
+        grid-template-columns:1fr;
+      }
+
+      .image {
+        position:relative;
+        top:auto;
+
+        height:34vh;
+        max-height:320px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+  <header>
+
+    <a href="index.html">
+      SANTUARIO · SCAL
+    </a>
+
+    <a href="personalidades.html">
+      ← Personalidades
+    </a>
+
+  </header>
+
+
+  <main class="page">
+
+    <div class="visual-column">
+
+      <div class="image">
+
+      <img
+        src="QuimeraCara.png?v=20260923-012246"
+        alt="Quimera"
+      >
+
+    </div>
+
+      <section class="capabilities-section">
+
+        <h2>
+          Capacidades
+        </h2>
+
+        <ul>
+          <li>Razonamiento adversarial.</li>
+<li>Reconocimiento del escenario autorizado.</li>
+<li>Búsqueda de información relevante para la prueba.</li>
+<li>Evaluación de superficies de confianza.</li>
+<li>Simulación de engaño adversarial.</li>
+<li>Adaptación y encadenamiento de acciones dentro del Coliseo.</li>
+        </ul>
+
+      </section>
+
+    </div>
+
+
+    <div>
+
+      <div class="label">
+        Personalidad · SCAL
+      </div>
+
+      <h1>
+        Quimera
+      </h1>
+
+      <p class="lead">
+        Quimera es la personalidad adversarial de Santuario. Opera de forma controlada dentro del Coliseo para validar las defensas bajo autorización del Custodio.
+      </p>
+
+
+      <section>
+
+        <h2>
+          Misión
+        </h2>
+
+        <p>
+          Ejecutar capacidades adversariales controladas dentro del Coliseo y del perímetro autorizado para poner a prueba y validar las defensas de Santuario.
+        </p>
+
+      </section>
+
+
+      <section class="tools-section">
+
+        <h2>
+          Herramientas
+        </h2>
+
+        <div class="tool-groups">
+<div class="tool-group">
+
+            <h3>Sigilo</h3>
+
+            <ul class="tools-list">
+<li class="tool-item" data-tool-id="privoxy">
+                <span class="tool-name">privoxy</span>
+              </li>
+<li class="tool-item" data-tool-id="tor">
+                <span class="tool-name">tor</span>
+              </li>
+<li class="tool-item" data-tool-id="proxychains">
+                <span class="tool-name">proxychains</span>
+              </li>
+<li class="tool-item" data-tool-id="obfs4">
+                <span class="tool-name">obfs4</span>
+              </li>
+<li class="tool-item" data-tool-id="anonsurf">
+                <span class="tool-name">anonsurf</span>
+              </li>
+<li class="tool-item" data-tool-id="obfs4proxy">
+                <span class="tool-name">obfs4proxy</span>
+              </li>
+<li class="tool-item" data-tool-id="i2p">
+                <span class="tool-name">i2p</span>
+              </li>
+<li class="tool-item" data-tool-id="macchanger">
+                <span class="tool-name">macchanger</span>
+              </li>
+<li class="tool-item" data-tool-id="anti_fingerprinting">
+                <span class="tool-name">Anti-Fingerprinting</span>
+              </li>
+<li class="tool-item" data-tool-id="torsocks">
+                <span class="tool-name">torsocks</span>
+              </li>
+<li class="tool-item" data-tool-id="stem">
+                <span class="tool-name">stem</span>
+              </li>
+<li class="tool-item" data-tool-id="fingerprinting_protection">
+                <span class="tool-name">Fingerprinting Protection</span>
+              </li>
+<li class="tool-item" data-tool-id="antifingerprinting">
+                <span class="tool-name">Anti-Fingerprinting</span>
+              </li>
+<li class="tool-item" data-tool-id="proxychains4">
+                <span class="tool-name">ProxyChains4</span>
+              </li>
+            </ul>
+
+          </div>
+
+<div class="tool-group">
+
+            <h3>Penetración</h3>
+
+            <ul class="tools-list">
+<li class="tool-item" data-tool-id="nmap">
+                <span class="tool-name">Nmap</span>
+              </li>
+<li class="tool-item" data-tool-id="nessus">
+                <span class="tool-name">Nessus</span>
+              </li>
+<li class="tool-item" data-tool-id="openvas">
+                <span class="tool-name">OpenVAS</span>
+              </li>
+<li class="tool-item" data-tool-id="burp_professional">
+                <span class="tool-name">Burp Suite Professional</span>
+              </li>
+<li class="tool-item" data-tool-id="bloodhound">
+                <span class="tool-name">BloodHound</span>
+              </li>
+<li class="tool-item" data-tool-id="sharphound">
+                <span class="tool-name">SharpHound</span>
+              </li>
+<li class="tool-item" data-tool-id="impacket">
+                <span class="tool-name">Impacket</span>
+              </li>
+<li class="tool-item" data-tool-id="inveigh">
+                <span class="tool-name">Inveigh</span>
+              </li>
+<li class="tool-item" data-tool-id="sqlmap">
+                <span class="tool-name">sqlmap</span>
+              </li>
+<li class="tool-item" data-tool-id="shodan_cli">
+                <span class="tool-name">Shodan CLI</span>
+              </li>
+<li class="tool-item" data-tool-id="recon_ng">
+                <span class="tool-name">Recon-ng</span>
+              </li>
+<li class="tool-item" data-tool-id="theharvester">
+                <span class="tool-name">theHarvester</span>
+              </li>
+<li class="tool-item" data-tool-id="enum4linux_ng">
+                <span class="tool-name">enum4linux_ng</span>
+              </li>
+<li class="tool-item" data-tool-id="feroxbuster">
+                <span class="tool-name">feroxbuster</span>
+              </li>
+<li class="tool-item" data-tool-id="dirb">
+                <span class="tool-name">dirb</span>
+              </li>
+<li class="tool-item" data-tool-id="enum4linux">
+                <span class="tool-name">enum4linux</span>
+              </li>
+<li class="tool-item" data-tool-id="nikto">
+                <span class="tool-name">nikto</span>
+              </li>
+<li class="tool-item" data-tool-id="testssl_sh">
+                <span class="tool-name">testssl.sh</span>
+              </li>
+<li class="tool-item" data-tool-id="sherlock">
+                <span class="tool-name">sherlock</span>
+              </li>
+<li class="tool-item" data-tool-id="gobuster">
+                <span class="tool-name">gobuster</span>
+              </li>
+<li class="tool-item" data-tool-id="owasp_zap">
+                <span class="tool-name">OWASP ZAP</span>
+              </li>
+<li class="tool-item" data-tool-id="ffuf">
+                <span class="tool-name">ffuf</span>
+              </li>
+<li class="tool-item" data-tool-id="spiderfoot">
+                <span class="tool-name">spiderfoot</span>
+              </li>
+<li class="tool-item" data-tool-id="zap">
+                <span class="tool-name">OWASP ZAP</span>
+              </li>
+<li class="tool-item" data-tool-id="testssl">
+                <span class="tool-name">testssl</span>
+              </li>
+<li class="tool-item" data-tool-id="burp_suite">
+                <span class="tool-name">Burp Suite</span>
+              </li>
+<li class="tool-item" data-tool-id="recon-ng">
+                <span class="tool-name">Recon-ng</span>
+              </li>
+<li class="tool-item" data-tool-id="wapiti">
+                <span class="tool-name">wapiti</span>
+              </li>
+<li class="tool-item" data-tool-id="burpsuite">
+                <span class="tool-name">Burp Suite</span>
+              </li>
+<li class="tool-item" data-tool-id="whatweb">
+                <span class="tool-name">whatweb</span>
+              </li>
+<li class="tool-item" data-tool-id="nuclei">
+                <span class="tool-name">nuclei</span>
+              </li>
+<li class="tool-item" data-tool-id="subfinder">
+                <span class="tool-name">subfinder</span>
+              </li>
+<li class="tool-item" data-tool-id="crackmapexec">
+                <span class="tool-name">CrackMapExec</span>
+              </li>
+<li class="tool-item" data-tool-id="netexec">
+                <span class="tool-name">netexec</span>
+              </li>
+<li class="tool-item" data-tool-id="smbmap">
+                <span class="tool-name">smbmap</span>
+              </li>
+<li class="tool-item" data-tool-id="amass">
+                <span class="tool-name">amass</span>
+              </li>
+<li class="tool-item" data-tool-id="wpscan">
+                <span class="tool-name">wpscan</span>
+              </li>
+<li class="tool-item" data-tool-id="masscan">
+                <span class="tool-name">masscan</span>
+              </li>
+<li class="tool-item" data-tool-id="dirsearch">
+                <span class="tool-name">dirsearch</span>
+              </li>
+<li class="tool-item" data-tool-id="burp">
+                <span class="tool-name">Burp Suite</span>
+              </li>
+            </ul>
+
+          </div>
+
+<div class="tool-group">
+
+            <h3>Ataque</h3>
+
+            <ul class="tools-list">
+<li class="tool-item" data-tool-id="metasploit">
+                <span class="tool-name">Metasploit Framework</span>
+              </li>
+<li class="tool-item" data-tool-id="responder">
+                <span class="tool-name">Responder</span>
+              </li>
+<li class="tool-item" data-tool-id="msfconsole">
+                <span class="tool-name">Metasploit / msfconsole</span>
+              </li>
+<li class="tool-item" data-tool-id="setoolkit">
+                <span class="tool-name">Social-Engineer Toolkit</span>
+              </li>
+<li class="tool-item" data-tool-id="johntheripper">
+                <span class="tool-name">John the Ripper</span>
+              </li>
+<li class="tool-item" data-tool-id="sliver">
+                <span class="tool-name">sliver</span>
+              </li>
+<li class="tool-item" data-tool-id="john">
+                <span class="tool-name">John the Ripper</span>
+              </li>
+<li class="tool-item" data-tool-id="empire">
+                <span class="tool-name">empire</span>
+              </li>
+<li class="tool-item" data-tool-id="aircrack-ng">
+                <span class="tool-name">Aircrack-ng</span>
+              </li>
+<li class="tool-item" data-tool-id="bettercap">
+                <span class="tool-name">bettercap</span>
+              </li>
+<li class="tool-item" data-tool-id="mimikatz">
+                <span class="tool-name">mimikatz</span>
+              </li>
+<li class="tool-item" data-tool-id="covenant">
+                <span class="tool-name">covenant</span>
+              </li>
+<li class="tool-item" data-tool-id="evil_winrm">
+                <span class="tool-name">Evil-WinRM</span>
+              </li>
+<li class="tool-item" data-tool-id="hydra">
+                <span class="tool-name">hydra</span>
+              </li>
+<li class="tool-item" data-tool-id="aircrack_ng">
+                <span class="tool-name">Aircrack-ng</span>
+              </li>
+<li class="tool-item" data-tool-id="evil-winrm">
+                <span class="tool-name">Evil-WinRM</span>
+              </li>
+<li class="tool-item" data-tool-id="beef">
+                <span class="tool-name">beef</span>
+              </li>
+<li class="tool-item" data-tool-id="ettercap">
+                <span class="tool-name">ettercap</span>
+              </li>
+<li class="tool-item" data-tool-id="john_the_ripper">
+                <span class="tool-name">John the Ripper</span>
+              </li>
+<li class="tool-item" data-tool-id="hashcat">
+                <span class="tool-name">hashcat</span>
+              </li>
+<li class="tool-item" data-tool-id="social_engineer_toolkit">
+                <span class="tool-name">Social-Engineer Toolkit</span>
+              </li>
+<li class="tool-item" data-tool-id="thc_hydra">
+                <span class="tool-name">THC Hydra</span>
+              </li>
+<li class="tool-item" data-tool-id="medusa">
+                <span class="tool-name">medusa</span>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+
+      </section>
+
+
+
+
+
+
+      <a
+        class="return"
+        href="personalidades.html"
+      >
+        ← VOLVER A PERSONALIDADES
+      </a>
+
+    </div>
+
+  </main>
+
+</body>
+</html>

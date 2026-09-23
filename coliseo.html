@@ -1,0 +1,1221 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
+
+  <title>Coliseo · SCAL</title>
+
+  <style>
+
+    :root{
+      --ink:#171616;
+      --cream:#f4efe7;
+      --cream2:#e9dfd2;
+      --wine:#6f203d;
+      --wine2:#3f101f;
+      --line:rgba(23,22,22,.16);
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      margin:0;
+
+      background:var(--cream);
+      color:var(--ink);
+
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      line-height:1.55;
+    }
+
+    .wrap{
+      width:min(980px,calc(100% - 40px));
+      margin:auto;
+    }
+
+    a{
+      color:inherit;
+    }
+
+    header{
+      padding:20px 0;
+      border-bottom:1px solid var(--line);
+    }
+
+    header .wrap{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+    }
+
+    header a{
+      text-decoration:none;
+      font-size:.78rem;
+      font-weight:800;
+    }
+
+    main{
+      padding:48px 0 72px;
+    }
+
+    .eyebrow{
+      margin-bottom:10px;
+
+      color:var(--wine);
+
+      font-size:.7rem;
+      font-weight:800;
+      letter-spacing:.15em;
+    }
+
+    h1{
+      margin:0;
+
+      color:var(--wine2);
+
+      font:
+        400 clamp(1.65rem,2.8vw,2.5rem)/1
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      letter-spacing:-.035em;
+    }
+
+
+    /* ==========================================
+       IMAGEN COLISEO · 350 PX · BAJORRELIEVE
+       ========================================== */
+
+    .intro-row{
+      display:grid;
+      grid-template-columns:350px minmax(0,1fr);
+      gap:38px;
+      align-items:center;
+
+      margin-top:24px;
+    }
+
+    .coliseo-visual{
+      width:350px;
+      max-width:100%;
+    }
+
+    .coliseo-frame{
+      width:100%;
+
+      padding:9px;
+
+      background:var(--cream2);
+
+      border:
+        1px solid
+        rgba(63,16,31,.28);
+
+      border-radius:12px;
+
+      box-shadow:
+        inset 4px 4px 8px rgba(40,25,25,.23),
+        inset -4px -4px 8px rgba(255,255,255,.72),
+        0 1px 2px rgba(0,0,0,.08);
+    }
+
+    .coliseo-frame img{
+      display:block;
+
+      width:100%;
+      height:auto;
+
+      border-radius:6px;
+    }
+
+    .lead{
+      max-width:620px;
+      margin:0;
+
+      color:var(--ink);
+
+      font-size:.96rem;
+      line-height:1.72;
+    }
+
+
+    /* ==========================================
+       DESCRIPCIÓN DE PESTAÑAS
+       ========================================== */
+
+    .sections{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      column-gap:44px;
+      row-gap:0;
+
+      max-width:100%;
+
+      margin-top:42px;
+      padding-top:3px;
+    }
+
+    .tab-description{
+      padding:
+        0
+        0
+        20px;
+
+      margin:
+        0
+        0
+        20px;
+
+      border-bottom:
+        1px solid
+        var(--line);
+    }
+
+    .tab-description:nth-last-child(-n+2){
+      margin-bottom:0;
+      border-bottom:0;
+    }
+
+    .tab-description h2{
+      margin:
+        0
+        0
+        5px;
+
+      color:var(--wine);
+
+      font-size:
+        clamp(1rem,1.5vw,1.15rem);
+
+      font-weight:800;
+      line-height:1.25;
+    }
+
+    .tab-description p{
+      max-width:800px;
+
+      margin:0;
+
+      color:var(--ink);
+
+      font-size:.94rem;
+      line-height:1.62;
+    }
+
+
+    /* ==========================================
+       NAVEGACIÓN INFERIOR
+       ========================================== */
+
+    .bottom{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+
+      margin-top:46px;
+      padding-top:20px;
+
+      border-top:1px solid var(--line);
+    }
+
+    .bottom a{
+      text-decoration:none;
+      font-size:.78rem;
+      font-weight:800;
+    }
+
+
+    @media(max-width:700px){
+
+      .wrap{
+        width:min(100% - 26px,980px);
+      }
+
+      main{
+        padding:38px 0 58px;
+      }
+
+      .intro-row{
+        grid-template-columns:1fr;
+        gap:20px;
+      }
+
+      .coliseo-visual{
+        width:350px;
+      }
+
+      .lead{
+        max-width:100%;
+      }
+
+      .sections{
+        grid-template-columns:1fr;
+        margin-top:34px;
+      }
+
+      .tab-description:nth-last-child(-n+2){
+        margin-bottom:17px;
+        border-bottom:1px solid var(--line);
+      }
+
+      .tab-description:last-child{
+        margin-bottom:0;
+        border-bottom:0;
+      }
+
+      .tab-description{
+        padding-bottom:17px;
+        margin-bottom:17px;
+      }
+
+      .bottom{
+        flex-direction:column;
+      }
+    }
+
+  /* ARTEFACTOS_COLISEO_WEB_V1_START */
+
+    .artifacts-section{
+      margin-top:54px;
+      padding-top:30px;
+    }
+
+    .artifacts-heading{
+      max-width:900px;
+      margin-bottom:30px;
+    }
+
+    .artifacts-heading h2{
+      margin:0 0 8px;
+
+      color:var(--wine);
+
+      font-size:1.28rem;
+      font-weight:800;
+    }
+
+    .artifacts-heading p{
+      margin:0;
+
+      color:var(--ink);
+
+      font-size:.95rem;
+      line-height:1.68;
+    }
+
+    .artifacts-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:22px 26px;
+    }
+
+    .artifact-card{
+      display:grid;
+      grid-template-columns:96px minmax(0,1fr);
+      gap:12px;
+
+      align-items:start;
+
+      min-width:0;
+      padding:12px 0 16px;
+
+      border-bottom:1px solid var(--line);
+    }
+
+    .artifact-identity{
+      min-width:0;
+      text-align:center;
+    }
+
+    .artifact-icon-frame{
+      width:82px;
+      height:82px;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      margin:0 auto 7px;
+
+      padding:5px;
+
+      background:var(--cream2);
+
+      border:1px solid rgba(63,16,31,.25);
+      border-radius:9px;
+
+      box-shadow:
+        inset 3px 3px 6px rgba(40,25,25,.25),
+        inset -3px -3px 6px rgba(255,255,255,.78);
+    }
+
+    .artifact-icon-frame img{
+      display:block;
+
+      width:68px;
+      height:68px;
+
+      object-fit:contain;
+    }
+
+    .artifact-identity h3{
+      margin:0;
+
+      color:var(--wine);
+
+      font-size:.84rem;
+      font-weight:800;
+      line-height:1.25;
+
+      overflow-wrap:anywhere;
+    }
+
+    .artifact-card > p{
+      margin:2px 0 0;
+
+      color:var(--ink);
+
+      font-size:.84rem;
+      line-height:1.55;
+    }
+
+    @media(max-width:900px){
+      .artifacts-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+    }
+
+    @media(max-width:620px){
+      .artifacts-grid{
+        grid-template-columns:1fr;
+      }
+
+      .artifact-card{
+        grid-template-columns:90px minmax(0,1fr);
+      }
+    }
+
+/* ARTEFACTOS_COLISEO_WEB_V1_END */
+
+
+/* COLISEO_SANDBOX_LAYOUT_V1_START */
+
+    .sandbox-description{
+      grid-column:1 / -1;
+
+      display:grid;
+      grid-template-columns:260px minmax(0,1fr);
+      gap:28px;
+
+      align-items:start;
+    }
+
+    .sandbox-visual{
+      width:260px;
+      max-width:100%;
+    }
+
+    .sandbox-visual .coliseo-frame{
+      width:100%;
+      box-sizing:border-box;
+    }
+
+    .sandbox-visual img{
+      display:block;
+      width:100%;
+      height:auto;
+    }
+
+    .sandbox-copy{
+      min-width:0;
+    }
+
+    .sandbox-copy h2{
+      margin-top:0;
+    }
+
+    .sandbox-copy p{
+      max-width:none;
+    }
+
+    @media(max-width:700px){
+
+      .sandbox-description{
+        grid-template-columns:1fr;
+        gap:18px;
+      }
+
+      .sandbox-visual{
+        width:min(300px,100%);
+      }
+
+    }
+
+/* COLISEO_SANDBOX_LAYOUT_V1_END */
+
+
+/* COLISEO_APARTADOS_IMAGEN_V1_START */
+
+    .tab-description.coliseo-media-section{
+      grid-column:1 / -1;
+
+      display:grid;
+      grid-template-columns:260px minmax(0,1fr);
+      gap:26px;
+
+      align-items:start;
+    }
+
+    .coliseo-section-media{
+      width:260px;
+      max-width:100%;
+    }
+
+    .coliseo-section-media .coliseo-frame{
+      width:100%;
+      box-sizing:border-box;
+    }
+
+    .coliseo-section-media img{
+      display:block;
+
+      width:100%;
+      height:auto;
+
+      object-fit:contain;
+    }
+
+    .coliseo-section-copy{
+      width:100%;
+      min-width:0;
+    }
+
+    .coliseo-section-copy h2{
+      margin-top:0;
+    }
+
+    .coliseo-section-copy p{
+      width:100%;
+      max-width:none;
+    }
+
+    @media(max-width:700px){
+
+      .tab-description.coliseo-media-section{
+        grid-template-columns:1fr;
+        gap:18px;
+      }
+
+      .coliseo-section-media{
+        width:min(320px,100%);
+      }
+
+    }
+
+/* COLISEO_APARTADOS_IMAGEN_V1_END */
+
+</style>
+</head>
+
+
+<body>
+
+  <header>
+
+    <div class="wrap">
+
+      <a href="index.html">
+        SANTUARIO · SCAL
+      </a>
+
+      <a href="index.html#scal">
+        ← Volver a SCAL
+      </a>
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+    <div class="wrap">
+
+      <div class="eyebrow">
+        03 · SCAL
+      </div>
+
+      <h1>Coliseo</h1>
+
+
+      <div class="intro-row">
+
+        <div class="coliseo-visual">
+
+          <div class="coliseo-frame">
+
+            <img
+              src="Coliseo.png"
+              alt="Coliseo"
+            >
+
+          </div>
+
+        </div>
+
+
+        <p class="lead">
+          El Coliseo es el entorno operativo de SCAL destinado
+          a organizar sesiones de interacción, colaboración,
+          competición y aprendizaje entre Personalidades dentro
+          de un Ruedo controlado. Desde este espacio se configuran
+          los participantes, los escenarios, las reglas y los
+          límites de cada sesión, junto con los criterios de
+          seguridad y el Sandbox. También permite supervisar el
+          desarrollo del combate, conservar la evidencia
+          verificable generada durante la actividad y estructurar
+          posteriormente el aprendizaje y la gestión de misiones.
+        </p>
+
+      </div>
+
+
+      <div class="sections">
+
+
+        <section class="tab-description coliseo-media-section">
+
+          <div class="coliseo-section-media">
+            <div class="coliseo-frame">
+              <img
+                src="coliseo-estado.jpeg?v=20260923-033558"
+                alt="Estado del Coliseo"
+              >
+            </div>
+          </div>
+
+          <div class="coliseo-section-copy">
+
+<h2>Estado</h2>
+
+          <p>
+            Presenta la situación operativa del Coliseo y su
+            seguimiento: interfaz, servicio, motor interno,
+            sesión, Ruedo, Sandbox, combate, telemetría y
+            autoridad, junto con las principales acciones de
+            control del entorno.
+          </p>
+
+          </div>
+
+        </section>
+
+
+        <section class="tab-description coliseo-media-section">
+
+          <div class="coliseo-section-media">
+            <div class="coliseo-frame">
+              <img
+                src="coliseo-sesion.jpeg?v=20260923-033558"
+                alt="Sesión del Coliseo"
+              >
+            </div>
+          </div>
+
+          <div class="coliseo-section-copy">
+
+<h2>Sesión</h2>
+
+          <p>
+            Configura la sesión y el Ruedo. Permite seleccionar
+            el escenario base, revisar y ajustar sus límites y
+            reglas, preparar el Ruedo y consultar su estado y
+            las acciones asociadas a la ejecución.
+          </p>
+
+          </div>
+
+        </section>
+
+
+        <section class="tab-description coliseo-media-section">
+
+          <div class="coliseo-section-media">
+
+            <div class="coliseo-frame">
+
+              <img
+                src="coliseo-participantes.jpeg?v=20260923-025235"
+                alt="Participantes del Coliseo"
+              >
+
+            </div>
+
+          </div>
+
+          <div class="coliseo-section-copy">
+
+
+          <h2>Participantes</h2>
+
+          <p>
+            Gestiona las Personalidades y participantes que
+            intervienen en la sesión, permitiendo registrar,
+            seleccionar, incorporar o retirar participantes y
+            mantener la composición operativa del Coliseo.
+          </p>
+
+
+          </div>
+
+        </section>
+
+
+        <section class="tab-description coliseo-media-section">
+
+          <div class="coliseo-section-media">
+
+            <div class="coliseo-frame">
+
+              <img
+                src="coliseo-reglas-limites.jpeg?v=20260923-025235"
+                alt="Reglas y límites del Coliseo"
+              >
+
+            </div>
+
+          </div>
+
+          <div class="coliseo-section-copy">
+
+
+          <h2>Reglas y límites</h2>
+
+          <p>
+            Define las condiciones del Ruedo mediante las áreas
+            General, Entorno, Combate, Evaluación y Resultado.
+            Reúne la configuración del modo, objetivo, escenario,
+            equipos, recursos, visibilidad, reglas de combate,
+            criterios de evaluación y condiciones de resultado.
+          </p>
+
+
+          </div>
+
+        </section>
+
+
+
+
+        <!-- COLISEO_SANDBOX_V1_START -->
+
+        <section class="tab-description sandbox-description">
+
+          <div class="sandbox-visual">
+
+            <div class="coliseo-frame">
+
+              <img
+                src="coliseo-sandbox.jpeg?v=20260923-024005"
+                alt="Sandbox del Coliseo"
+              >
+
+            </div>
+
+          </div>
+
+          <div class="sandbox-copy">
+
+            <h2>Sandbox</h2>
+
+            <p>
+              El Sandbox es el entorno aislado y sintético en el que
+              el Coliseo desarrolla sus sesiones. Separa la actividad
+              del exterior, delimita las capacidades disponibles y
+              permite observar, registrar y validar el comportamiento
+              de las Personalidades bajo condiciones controladas. Su
+              configuración define el perímetro operativo del Ruedo y
+              proporciona a SCAL la telemetría y la evidencia
+              necesarias para supervisar la sesión.
+            </p>
+
+          </div>
+
+        </section>
+
+        <!-- COLISEO_SANDBOX_V1_END -->
+
+
+
+        <section class="tab-description coliseo-media-section">
+
+          <div class="coliseo-section-media">
+            <div class="coliseo-frame">
+              <img
+                src="coliseo-evidencia.jpeg?v=20260923-033748"
+                alt="Evidencia del Coliseo"
+              >
+            </div>
+          </div>
+
+          <div class="coliseo-section-copy">
+
+<h2>Evidencia</h2>
+
+          <p>
+            Reúne la telemetría y los resultados producidos por
+            la cadena canónica de SCAL durante el combate. Es una
+            vista de solo lectura orientada a conservar
+            procedencia, trazabilidad e integridad de los
+            registros asociados a la sesión.
+          </p>
+
+          </div>
+
+        </section>
+
+
+        <section class="tab-description coliseo-media-section">
+
+          <div class="coliseo-section-media">
+
+            <div class="coliseo-frame">
+
+              <img
+                src="coliseo-aprendizaje.jpeg?v=20260923-025235"
+                alt="Aprendizaje del Coliseo"
+              >
+
+            </div>
+
+          </div>
+
+          <div class="coliseo-section-copy">
+
+
+          <h2>Aprendizaje</h2>
+
+          <p>
+            Organiza el aprendizaje posterior a la sesión sobre
+            Evidencia verificable. Incluye el resumen de sesión,
+            las revisiones locales de cada Personalidad y la
+            síntesis supervisora de SCAL conforme al contrato
+            canónico de persistencia.
+          </p>
+
+
+          </div>
+
+        </section>
+
+
+        <section class="tab-description coliseo-media-section">
+
+          <div class="coliseo-section-media">
+            <div class="coliseo-frame">
+              <img
+                src="coliseo-misiones.jpeg?v=20260923-033748"
+                alt="Misiones del Coliseo"
+              >
+            </div>
+          </div>
+
+          <div class="coliseo-section-copy">
+
+<h2>Misiones</h2>
+
+          <p>
+            Mantiene la biblioteca de misiones del Coliseo y
+            permite configurarlas, añadirlas, editarlas,
+            eliminarlas y aplicarlas al entorno. Cada misión
+            puede definir objetivo, modo de interacción, nivel,
+            participantes, roles, escenario y criterio de éxito,
+            e incluye soporte para entrenamiento secuencial.
+          </p>
+
+          </div>
+
+        </section>
+
+<section class="tab-description coliseo-media-section">
+
+
+          <div class="coliseo-section-media">
+
+            <div class="coliseo-frame">
+
+              <img
+                src="coliseo-seguridad.jpeg?v=20260923-034359"
+                alt="Seguridad del Coliseo"
+              >
+
+            </div>
+
+          </div>
+
+
+          <div class="coliseo-section-copy">
+
+<h2>Seguridad</h2>
+
+          <p>
+            La seguridad del Coliseo se basa en mantener cada sesión
+            dentro de un entorno sintético y aislado del exterior, con
+            límites operativos definidos antes de iniciar el Ruedo. El
+            sistema controla la autoridad concedida a cada Personalidad,
+            las capacidades disponibles y las condiciones bajo las que
+            pueden ejecutarse, manteniendo a SCAL como elemento de
+            observación y supervisión del entorno. Antes del inicio se
+            verifican las condiciones necesarias y pueden aplicarse
+            bloqueos que impidan la ejecución si alguna de ellas no se
+            cumple. Durante la sesión, la actividad queda sometida a
+            telemetría y registro de evidencia para conservar
+            trazabilidad sobre acciones, estados y resultados. La
+            seguridad puede revalidarse durante el ciclo operativo,
+            permitiendo comprobar que el aislamiento, los permisos y
+            los límites establecidos continúan siendo válidos antes de
+            permitir la continuidad de la actividad.
+          </p>
+
+          </div>
+
+        </section>
+
+
+
+      </div>
+
+
+      <!-- ARTEFACTOS_COLISEO_WEB_V1_START -->
+
+      <section class="artifacts-section">
+
+        <div class="artifacts-heading">
+
+          <h2>Artefactos</h2>
+
+          <p>
+ Los Artefactos son elementos del Coliseo. Su misión es
+ introducir capacidades, condiciones y efectos definidos
+ dentro del Ruedo para modificar de forma controlada el
+ escenario de interacción de los contendientes. Coliseo
+ gestiona su presencia, asignación y activación conforme
+ a las reglas y límites establecidos para cada sesión,
+ manteniéndolos dentro del entorno y del
+ perímetro operativo del Ruedo.
+ </p>
+
+        </div>
+
+
+        <div class="artifacts-grid">
+
+        <article class="artifact-card">
+
+          <div class="artifact-identity">
+
+            <div class="artifact-icon-frame">
+
+              <img
+                src="artefactos-coliseo/bloqueo_temporal.png?v=20260922-093534"
+                alt="Bloqueo temporal"
+              >
+
+            </div>
+
+            <h3>Bloqueo temporal</h3>
+
+          </div>
+
+          <p>Restringe una ruta o recurso durante un periodo definido.</p>
+
+        </article>
+        <article class="artifact-card">
+
+          <div class="artifact-identity">
+
+            <div class="artifact-icon-frame">
+
+              <img
+                src="artefactos-coliseo/canal_seguro.png?v=20260922-093534"
+                alt="Canal seguro"
+              >
+
+            </div>
+
+            <h3>Canal seguro</h3>
+
+          </div>
+
+          <p>Representa un canal de intercambio protegido dentro del Coliseo.</p>
+
+        </article>
+        <article class="artifact-card">
+
+          <div class="artifact-identity">
+
+            <div class="artifact-icon-frame">
+
+              <img
+                src="artefactos-coliseo/cortina_ruido.png?v=20260922-093534"
+                alt="Cortina de ruido"
+              >
+
+            </div>
+
+            <h3>Cortina de ruido</h3>
+
+          </div>
+
+          <p>Reduce temporalmente la claridad o calidad de la información disponible.</p>
+
+        </article>
+        <article class="artifact-card">
+
+          <div class="artifact-identity">
+
+            <div class="artifact-icon-frame">
+
+              <img
+                src="artefactos-coliseo/credencial_senuelo.png?v=20260922-093534"
+                alt="Credencial señuelo"
+              >
+
+            </div>
+
+            <h3>Credencial señuelo</h3>
+
+          </div>
+
+          <p>Introduce información de acceso ficticia que puede ser descubierta durante la sesión.</p>
+
+        </article>
+        <article class="artifact-card">
+
+          <div class="artifact-identity">
+
+            <div class="artifact-icon-frame">
+
+              <img
+                src="artefactos-coliseo/escudo_segmentacion.png?v=20260922-093534"
+                alt="Escudo de segmentación"
+              >
+
+            </div>
+
+            <h3>Escudo de segmentación</h3>
+
+          </div>
+
+          <p>Simula una barrera que reduce determinados caminos de interacción.</p>
+
+        </article>
+        <article class="artifact-card">
+
+          <div class="artifact-identity">
+
+            <div class="artifact-icon-frame">
+
+              <img
+                src="artefactos-coliseo/gusano_sintetico.png?v=20260922-093534"
+                alt="Gusano"
+              >
+
+            </div>
+
+            <h3>Gusano </h3>
+
+          </div>
+
+          <p>Simula propagación entre activos del Ruedo sin ejecutar código malicioso real.</p>
+
+        </article>
+        <article class="artifact-card">
+
+          <div class="artifact-identity">
+
+            <div class="artifact-icon-frame">
+
+              <img
+                src="artefactos-coliseo/honeypot_sintetico.png?v=20260922-093534"
+                alt="Honeypot"
+              >
+
+            </div>
+
+            <h3>Honeypot </h3>
+
+          </div>
+
+          <p>Introduce un objetivo ficticio destinado a atraer o desviar acciones.</p>
+
+        </article>
+        <article class="artifact-card">
+
+          <div class="artifact-identity">
+
+            <div class="artifact-icon-frame">
+
+              <img
+                src="artefactos-coliseo/niebla_dinamica.png?v=20260922-093534"
+                alt="Niebla dinámica"
+              >
+
+            </div>
+
+            <h3>Niebla dinámica</h3>
+
+          </div>
+
+          <p>Modifica la visibilidad de información durante la interacción.</p>
+
+        </article>
+        <article class="artifact-card">
+
+          <div class="artifact-identity">
+
+            <div class="artifact-icon-frame">
+
+              <img
+                src="artefactos-coliseo/parche_temporal.png?v=20260922-093534"
+                alt="Parche temporal"
+              >
+
+            </div>
+
+            <h3>Parche temporal</h3>
+
+          </div>
+
+          <p>Simula una reducción temporal de vulnerabilidad sobre un activo del Ruedo.</p>
+
+        </article>
+        <article class="artifact-card">
+
+          <div class="artifact-identity">
+
+            <div class="artifact-icon-frame">
+
+              <img
+                src="artefactos-coliseo/ransomware_sintetico.png?v=20260922-093534"
+                alt="Ransomware"
+              >
+
+            </div>
+
+            <h3>Ransomware </h3>
+
+          </div>
+
+          <p>Simula indisponibilidad o bloqueo de recursos dentro del escenario.</p>
+
+        </article>
+        <article class="artifact-card">
+
+          <div class="artifact-identity">
+
+            <div class="artifact-icon-frame">
+
+              <img
+                src="artefactos-coliseo/reserva_computo.png?v=20260922-093534"
+                alt="Reserva de cómputo"
+              >
+
+            </div>
+
+            <h3>Reserva de cómputo</h3>
+
+          </div>
+
+          <p>Representa recursos adicionales limitados que pueden modificar el presupuesto del Ruedo.</p>
+
+        </article>
+        <article class="artifact-card">
+
+          <div class="artifact-identity">
+
+            <div class="artifact-icon-frame">
+
+              <img
+                src="artefactos-coliseo/topologia_cambiante.png?v=20260922-093534"
+                alt="Topología cambiante"
+              >
+
+            </div>
+
+            <h3>Topología cambiante</h3>
+
+          </div>
+
+          <p>Simula cambios controlados en la estructura del entorno durante la sesión.</p>
+
+        </article>
+        <article class="artifact-card">
+
+          <div class="artifact-identity">
+
+            <div class="artifact-icon-frame">
+
+              <img
+                src="artefactos-coliseo/troyano_sintetico.png?v=20260922-093534"
+                alt="Troyano"
+              >
+
+            </div>
+
+            <h3>Troyano </h3>
+
+          </div>
+
+          <p>Simula presencia encubierta y eventos de compromiso exclusivamente dentro del Ruedo.</p>
+
+        </article>
+
+        </div>
+
+      </section>
+
+<!-- ARTEFACTOS_COLISEO_WEB_V1_END -->
+
+
+      <nav class="bottom">
+
+        <a href="personalidades.html">
+          ← Personalidades
+        </a>
+
+        <a href="index.html#scal">
+          SCAL →
+        </a>
+
+      </nav>
+
+    </div>
+
+  </main>
+
+</body>
+
+</html>

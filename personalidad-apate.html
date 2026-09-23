@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
+
+  <title>Apate · SCAL</title>
+
+  <style>
+
+    :root {
+      --ink:#171616;
+      --cream:#f4efe7;
+      --wine:#6f203d;
+      --wine-dark:#3f101f;
+      --green:#217447;
+      --line:rgba(23,22,22,.15);
+    }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    html,
+    body {
+      margin:0;
+      min-height:100%;
+    }
+
+    body {
+      background:var(--cream);
+      color:var(--ink);
+
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    }
+
+    header {
+      min-height:62px;
+
+      padding:
+        0
+        clamp(18px,4vw,58px);
+
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+
+      gap:20px;
+
+      border-bottom:1px solid var(--line);
+    }
+
+    header a {
+      color:var(--ink);
+
+      font-size:12px;
+      font-weight:800;
+
+      text-decoration:none;
+    }
+
+    .page {
+      width:min(1280px,calc(100% - 36px));
+
+      margin:auto;
+
+      padding:
+        clamp(26px,5vh,60px)
+        0
+        clamp(40px,7vh,80px);
+
+      display:grid;
+
+      grid-template-columns:
+        minmax(180px,300px)
+        minmax(0,1fr);
+
+      gap:
+        clamp(32px,6vw,90px);
+
+      align-items:start;
+    }
+
+    .image {
+      position:sticky;
+      top:24px;
+
+      width:100%;
+      height:min(38vh,360px);
+
+      overflow:hidden;
+
+      border-radius:18px;
+
+      background:#1d1a1b;
+    }
+
+    .image img {
+      display:block;
+
+      width:100%;
+      height:100%;
+
+      object-fit:cover;
+      object-position:center;
+    }
+
+    .label {
+      color:var(--wine);
+
+      font-size:12px;
+      font-weight:900;
+
+      letter-spacing:.14em;
+
+      text-transform:uppercase;
+    }
+
+    h1 {
+      margin:
+        9px
+        0
+        22px;
+
+      color:var(--wine-dark);
+
+      font:
+        400 clamp(34px,5vw,64px)/.94
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      letter-spacing:-.05em;
+    }
+
+    .lead {
+      margin:0;
+
+      color:var(--ink);
+
+      font-size:
+        clamp(14px,1.25vw,17px);
+
+      line-height:1.5;
+    }
+
+    section {
+      margin-top:22px;
+      padding-top:16px;
+
+      border-top:1px solid var(--line);
+    }
+
+    h2 {
+      margin:
+        0
+        0
+        13px;
+
+      color:var(--wine-dark);
+
+      font:
+        400 20px/1.1
+        Georgia,
+        "Times New Roman",
+        serif;
+    }
+
+    section p,
+    li {
+      color:var(--ink);
+
+      font-size:
+        clamp(12px,1.05vw,15px);
+
+      line-height:1.5;
+    }
+
+    ul {
+      margin:0;
+      padding-left:1.3em;
+    }
+
+    li + li {
+      margin-top:7px;
+    }
+
+    .tools-list {
+      margin:0;
+      padding:0;
+
+      display:flex;
+      flex-wrap:wrap;
+
+      gap:7px;
+
+      list-style:none;
+    }
+
+    .tools-list li {
+      margin:0;
+
+      padding:
+        5px
+        9px;
+
+      border:
+        1px solid rgba(23,22,22,.18);
+
+      border-radius:999px;
+
+      background:
+        rgba(255,255,255,.28);
+
+      font-size:
+        clamp(11px,.95vw,13px);
+
+      line-height:1.2;
+    }
+
+    .tools-note {
+      margin:0;
+
+      color:var(--ink);
+
+      font-size:
+        clamp(12px,1.05vw,14px);
+
+      line-height:1.5;
+    }
+
+
+    .return {
+      display:inline-block;
+
+      margin-top:34px;
+
+      color:var(--green);
+
+      font-size:14px;
+      font-weight:900;
+
+      text-decoration:none;
+    }
+
+    .return:hover {
+      text-decoration:underline;
+    }
+
+    /* HERRAMIENTAS BAJO IMAGEN V1 */
+
+    .visual-column {
+      min-width:0;
+    }
+
+    .visual-column .image {
+      position:relative;
+      top:auto;
+    }
+
+    .visual-column .tools-section {
+      margin-top:18px;
+      padding-top:15px;
+
+      border-top:
+        1px solid rgba(23,22,22,.15);
+    }
+
+    .visual-column .tools-section h2 {
+      margin:
+        0
+        0
+        10px;
+
+      color:var(--wine-dark);
+
+      font:
+        700 18px/1.1
+        Georgia,
+        "Times New Roman",
+        serif;
+    }
+
+    .visual-column .tools-list {
+      margin:0;
+      padding:0;
+
+      display:flex;
+      flex-wrap:wrap;
+
+      gap:7px;
+
+      list-style:none;
+    }
+
+    .visual-column .tools-list li {
+      margin:0;
+
+      padding:
+        5px
+        9px;
+
+      color:#6d28a8;
+
+      border:
+        1px solid rgba(109,40,168,.35);
+
+      border-radius:999px;
+
+      background:
+        rgba(109,40,168,.06);
+
+      font-size:
+        clamp(11px,.95vw,13px);
+
+      font-weight:900;
+      line-height:1.2;
+    }
+
+    .visual-column .tools-note {
+      margin:0;
+
+      color:#6d28a8;
+
+      font-size:
+        clamp(12px,1vw,14px);
+
+      font-weight:900;
+      line-height:1.45;
+    }
+
+
+    /* HERRAMIENTAS BLOQUES EXACTOS V3 BEGIN */
+
+    .visual-column .tools-section h2 {
+      color:var(--wine-dark);
+      font-weight:700;
+    }
+
+    .tool-groups {
+      display:grid;
+      gap:11px;
+    }
+
+    .tool-group {
+      padding:
+        10px
+        11px;
+
+      border:
+        1px solid rgba(63,16,31,.14);
+
+      border-radius:10px;
+
+      background:
+        rgba(255,255,255,.22);
+    }
+
+    .tool-group + .tool-group {
+      margin-top:0;
+    }
+
+    .tool-group h3 {
+      margin:
+        0
+        0
+        8px;
+
+      color:var(--wine-dark);
+
+      font-size:
+        clamp(11px,.95vw,13px);
+
+      font-weight:800;
+      line-height:1.2;
+    }
+
+    .tool-group .tools-list {
+      margin:0;
+      padding:0;
+
+      display:flex;
+      flex-wrap:wrap;
+
+      gap:6px;
+
+      list-style:none;
+    }
+
+    .tool-group .tools-list li {
+      margin:0;
+
+      padding:
+        4px
+        8px;
+
+      color:#6d28a8;
+
+      border:
+        1px solid rgba(109,40,168,.32);
+
+      border-radius:999px;
+
+      background:
+        rgba(109,40,168,.055);
+
+      font-size:
+        clamp(10px,.88vw,12px);
+
+      font-weight:900;
+      line-height:1.2;
+    }
+
+    .tool-group-empty {
+      margin:0;
+
+      color:#655d58;
+
+      font-size:11px;
+      line-height:1.35;
+    }
+
+    /* HERRAMIENTAS BLOQUES EXACTOS V3 END */
+
+    /* CAPACIDADES BAJO IMAGEN V1 */
+
+    .visual-column .capabilities-section {
+      margin-top:18px;
+      padding-top:15px;
+
+      border-top:
+        1px solid rgba(23,22,22,.15);
+    }
+
+    .visual-column .capabilities-section h2 {
+      color:var(--wine-dark);
+    }
+
+    .visual-column .capabilities-section ul {
+      margin:0;
+      padding-left:1.15em;
+    }
+
+    .visual-column .capabilities-section li {
+      font-size:
+        clamp(11px,.98vw,14px);
+
+      line-height:1.45;
+    }
+
+
+    /* TODAS LAS HERRAMIENTAS V4 BEGIN */
+
+    .tools-section > h2 {
+      color:var(--wine-dark);
+    }
+
+    .tool-groups {
+      display:grid;
+      gap:14px;
+    }
+
+    .tool-group {
+      padding:
+        11px
+        12px;
+
+      border:
+        1px solid rgba(63,16,31,.15);
+
+      border-radius:10px;
+
+      background:
+        rgba(255,255,255,.20);
+    }
+
+    .tool-group h3 {
+      margin:
+        0
+        0
+        8px;
+
+      color:var(--wine-dark);
+
+      font-size:
+        clamp(12px,1vw,14px);
+
+      font-weight:800;
+      line-height:1.2;
+    }
+
+    .tool-group .tools-list {
+      margin:0;
+      padding:0;
+
+      display:grid;
+      grid-template-columns:
+        repeat(
+          auto-fit,
+          minmax(150px,1fr)
+        );
+
+      gap:6px;
+
+      list-style:none;
+    }
+
+    .tool-group .tool-item {
+      margin:0;
+
+      padding:
+        6px
+        8px;
+
+      display:flex;
+      flex-direction:column;
+
+      gap:2px;
+
+      border:
+        1px solid rgba(109,40,168,.25);
+
+      border-radius:8px;
+
+      background:
+        rgba(109,40,168,.045);
+    }
+
+    .tool-name {
+      color:#6d28a8;
+
+      font-size:
+        clamp(10px,.9vw,12px);
+
+      font-weight:900;
+      line-height:1.2;
+
+      overflow-wrap:anywhere;
+    }
+
+    .tool-status {
+      color:#171616;
+
+      font-size:9px;
+      font-weight:700;
+
+      letter-spacing:.035em;
+      line-height:1.2;
+
+      text-transform:uppercase;
+    }
+
+    .tool-empty {
+      color:#655d58;
+      font-size:10px;
+    }
+
+    /* TODAS LAS HERRAMIENTAS V4 END */
+
+    @media(max-width:760px) {
+
+      .page {
+        grid-template-columns:1fr;
+      }
+
+      .image {
+        position:relative;
+        top:auto;
+
+        height:34vh;
+        max-height:320px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+  <header>
+
+    <a href="index.html">
+      SANTUARIO · SCAL
+    </a>
+
+    <a href="personalidades.html">
+      ← Personalidades
+    </a>
+
+  </header>
+
+
+  <main class="page">
+
+    <div class="visual-column">
+
+      <div class="image">
+
+      <img
+        src="apate-personal.png?v=20260922-082219"
+        alt="Apate"
+      >
+
+    </div>
+
+      <section class="capabilities-section">
+
+        <h2>
+          Capacidades
+        </h2>
+
+        <ul>
+          <li>Razonamiento retórico estratégico.</li>
+<li>Detección de vulnerabilidades cognitivas en discursos.</li>
+<li>Generación de señuelos retóricos controlados.</li>
+<li>Engaño trazable y reversible.</li>
+<li>Mayéutica mediante preguntas guiadas.</li>
+<li>Adaptación de estrategia dentro de la sesión autorizada.</li>
+        </ul>
+
+      </section>
+
+    </div>
+
+
+    <div>
+
+      <div class="label">
+        Personalidad · SCAL
+      </div>
+
+      <h1>
+        Apate
+      </h1>
+
+      <p class="lead">
+        Apate es la personalidad retórica y de contra-ingeniería social defensiva de Santuario.
+      </p>
+
+
+      <section>
+
+        <h2>
+          Misión
+        </h2>
+
+        <p>
+          Simular engaños controlados y analizar discurso hostil bajo orden del Custodio, aportando resultados para la defensa frente a ingeniería social.
+        </p>
+
+      </section>
+
+
+      <section class="tools-section">
+
+        <h2>
+          Herramientas
+        </h2>
+
+        <div class="tool-groups">
+<div class="tool-group">
+
+            <h3>Ataque</h3>
+
+            <ul class="tools-list">
+<li class="tool-item" data-tool-id="pyrit">
+                <span class="tool-name">PyRIT</span>
+              </li>
+<li class="tool-item" data-tool-id="garak">
+                <span class="tool-name">garak</span>
+              </li>
+<li class="tool-item" data-tool-id="promptfoo">
+                <span class="tool-name">Promptfoo</span>
+              </li>
+<li class="tool-item" data-tool-id="textattack">
+                <span class="tool-name">TextAttack</span>
+              </li>
+            </ul>
+
+          </div>
+
+<div class="tool-group">
+
+            <h3>Análisis</h3>
+
+            <ul class="tools-list">
+<li class="tool-item" data-tool-id="detoxify">
+                <span class="tool-name">Detoxify</span>
+              </li>
+<li class="tool-item" data-tool-id="spacy">
+                <span class="tool-name">spaCy</span>
+              </li>
+<li class="tool-item" data-tool-id="sentence_transformers">
+                <span class="tool-name">Sentence Transformers</span>
+              </li>
+<li class="tool-item" data-tool-id="markllm">
+                <span class="tool-name">MarkLLM</span>
+              </li>
+            </ul>
+
+          </div>
+
+<div class="tool-group">
+
+            <h3>Operación</h3>
+
+            <ul class="tools-list">
+<li class="tool-item" data-tool-id="rasa">
+                <span class="tool-name">Rasa Open Source</span>
+              </li>
+<li class="tool-item" data-tool-id="langfuse">
+                <span class="tool-name">Langfuse</span>
+              </li>
+            </ul>
+
+          </div>
+
+<div class="tool-group">
+
+            <h3>Sigilo</h3>
+
+            <ul class="tools-list">
+<li class="tool-item" data-tool-id="tor">
+                <span class="tool-name">Tor</span>
+              </li>
+<li class="tool-item" data-tool-id="privoxy">
+                <span class="tool-name">Privoxy</span>
+              </li>
+<li class="tool-item" data-tool-id="stem">
+                <span class="tool-name">Stem</span>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+
+      </section>
+
+
+
+
+
+
+      <a
+        class="return"
+        href="personalidades.html"
+      >
+        ← VOLVER A PERSONALIDADES
+      </a>
+
+    </div>
+
+  </main>
+
+</body>
+</html>
